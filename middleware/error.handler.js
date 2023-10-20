@@ -20,6 +20,7 @@ function boomErrorHandler(err, req, res, next)  {
     const { output } = err;
     res.status(output.statusCode).json(output.payload);
   } else {
+    console.log('no esta ingresando en isBoom boomErrorHandler');
     next(err);
   }
 }
