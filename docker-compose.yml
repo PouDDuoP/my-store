@@ -2,7 +2,11 @@ version: "3.9"
 services:
   app:
     container_name: app
-    build: .
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    # command: sh -c 'npm install; npm run start:dev'
     ports:
       - "3000:3000"
     environment:
@@ -13,6 +17,9 @@ services:
       - PG_HOST=db
     depends_on:
       - db
+    volumes:
+      - ./:/usr/src/app
+      - '/usr/src/app/node_modules'
 
   db:
     image: postgres:16
