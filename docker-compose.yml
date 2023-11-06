@@ -2,11 +2,10 @@ version: "3.9"
 services:
   app:
     container_name: app
-    restart: always
     build:
       context: .
+      target: prod
       dockerfile: Dockerfile
-    # command: sh -c 'npm install; npm run start:dev'
     ports:
       - "3000:3000"
     environment:
@@ -14,14 +13,39 @@ services:
       - PG_PASSWORD=123456
       - PG_DB=my_store
       - PG_PORT=5432
-      - PG_HOST=db
+      - PG_HOST=postgres
     depends_on:
-      - db
-    volumes:
-      - ./:/usr/src/app
-      - '/usr/src/app/node_modules'
+      - postgres
 
-  db:
+  app-dev:
+    container_name: app-dev
+    # restart: always
+    restart: unless-stopped
+    build:
+      context: .
+      target: dev
+      dockerfile: Dockerfile
+      args:
+        - PORT=${PORT}
+    # command: npm run start:dev
+    ports:
+      - "${PORT}:${PORT}"
+      - "9229:9229"
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+    environment:
+      - PG_USER=root
+      - PG_PASSWORD=123456
+      - PG_DB=my_store
+      - PG_PORT=5432
+      - PG_HOST=postgres
+    volumes:
+      - .:/usr/src/app
+      - node_modules:/usr/src/app/node_modules
+
+  postgres:
     image: postgres:16
     environment:
       - POSTGRES_DB=my_store
@@ -32,7 +56,7 @@ services:
     volumes:
       - postgres-data:/var/lib/postgresql/data
 
-  pgadmin:
+  postgres-admin:
     image: dpage/pgadmin4
     environment:
       - PGADMIN_DEFAULT_EMAIL=admin@gmail.com
@@ -42,3 +66,4 @@ services:
 
 volumes:
   postgres-data:
+  node_modules:

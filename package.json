@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "start:dev": "nodemon index.js",
+    "start:dev": "nodemon -L --inspect=0.0.0.0:9229 index.js",
     "lint": "eslint",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
