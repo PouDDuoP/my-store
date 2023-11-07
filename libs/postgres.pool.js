@@ -1,13 +1,11 @@
-const { Pool } = require("pg");
+const { Pool } = require("pg"); // con pool comparte la conexion .con todos los que lo nescesiten realizando solo una instancia
 
-// con pool comparte la conexion .con todos los que lo nescesiten realizando solo una instancia
+const { config } = require('../config/config');
 
-const pool = new Pool({
-  host: '172.23.0.3', // Aqui va law ip generada con docker o el localhost dependiendo de donde este corriendo la base de datos postgres
-  post: 5432,
-  user: "root",
-  password: "123456",
-  database: "my_store"
-});
+const USER = encodeURIComponent(config.dbUser);
+const PASSWORD = encodeURIComponent(config.dbPassword);
+const URI = `postgres://${USER}:${PASSWORD}@${config.dbHost}:${config.dbPort}/${config.dbName}`;
+
+const pool = new Pool({ connectionString: URI });
 
 module.exports = pool;

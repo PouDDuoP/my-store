@@ -43,7 +43,7 @@ services:
       - PG_HOST=postgres
     volumes:
       - .:/usr/src/app
-      - node_modules:/usr/src/app/node_modules
+      # - node_modules:/usr/src/app/node_modules
 
   postgres:
     image: postgres:16
@@ -66,4 +66,4 @@ services:
 
 volumes:
   postgres-data:
-  node_modules:
+  # node_modules:
