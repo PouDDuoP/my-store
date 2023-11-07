@@ -1,3 +1,4 @@
+const pool = require('../libs/postgres.pool');
 
 class CategoriesService {
 
@@ -11,15 +12,20 @@ class CategoriesService {
         id: "2",
         name: 'Category Two'
       }
-    ]
+    ];
+    this.pool = pool;
+    this.pool.on('error', (err) => console.error(err));
   }
 
   create() {
 
   }
 
-  find() {
-    return this.categories;
+  async find() {
+    const query = 'SELECT * FROM tasks';
+    const response = await this.pool.query(query);
+    return response.rows;
+    // return this.categories;
   }
 
   findOne(id) {
