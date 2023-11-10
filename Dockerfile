@@ -16,18 +16,20 @@ COPY . .
 
 RUN npm prune --production
 
-FROM build AS prod
+# Para Produccion
+# FROM build AS prod
 
-ENV USER node
+# ENV USER node
 
-COPY --from=build /usr/bin/dumb-init /usr/bin/dumb-init
-COPY --from=build $DIR/node_modules $DIR/node_modules
+# COPY --from=build /usr/bin/dumb-init /usr/bin/dumb-init
+# COPY --from=build $DIR/node_modules $DIR/node_modules
 
-ENV NODE_ENV=production
-EXPOSE $PORT
-USER $USER
-CMD ["dumb-init","node", "index.js"]
+# ENV NODE_ENV=production
+# EXPOSE $PORT
+# USER $USER
+# CMD ["dumb-init","node", "index.js"]
 
+# Para Desarrollo "docker-compose up app-dev postgres-admin --build"
 FROM base AS dev
 
 ENV NODE_ENV=development
