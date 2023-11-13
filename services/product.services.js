@@ -3,7 +3,7 @@ const boom = require("@hapi/boom");
 
 const sequelize = require('../libs/sequelize');
 
-class ProductsService {
+class ProductService {
 
   constructor() {
     this.products = [];
@@ -73,4 +73,4 @@ class ProductsService {
 
 }
 
-module.exports = ProductsService;
+module.exports = ProductService;

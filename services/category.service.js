@@ -1,6 +1,6 @@
 const pool = require('../libs/postgres.pool');
 
-class CategoriesService {
+class CategoryService {
 
   constructor() {
     this.categories = [
@@ -42,4 +42,4 @@ class CategoriesService {
 
 }
 
-module.exports = CategoriesService;
+module.exports = CategoryService;
