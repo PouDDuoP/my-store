@@ -125,7 +125,7 @@ web_modules/
 .yarn-integrity
 
 # dotenv environment variable files
-.env
+# .env
 .env.development.local
 .env.test.local
 .env.production.local
@@ -214,5 +214,9 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+# Database directories
+postgres_data/
+mysql_data/
 
 # End of https://www.toptal.com/developers/gitignore/api/node,windows,linux,macos
