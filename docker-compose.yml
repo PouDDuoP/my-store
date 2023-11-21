@@ -5,7 +5,7 @@ services:
   #   container_name: app
   #   build:
   #     context: .
-  #     target: prod
+  #     target: production
   #     dockerfile: Dockerfile
   #   ports:
   #     - "3000:3000"
@@ -25,7 +25,7 @@ services:
     restart: unless-stopped
     build:
       context: .
-      target: dev
+      target: development
       dockerfile: Dockerfile
       args:
         - PORT=${PORT}

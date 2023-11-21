@@ -17,7 +17,7 @@ COPY . .
 RUN npm prune --production
 
 # Para Produccion
-# FROM build AS prod
+# FROM build AS production
 
 # ENV USER node
 
@@ -30,7 +30,7 @@ RUN npm prune --production
 # CMD ["dumb-init","node", "index.js"]
 
 # Para Desarrollo "docker-compose up app-dev postgres-admin --build"
-FROM base AS dev
+FROM base AS development
 
 ENV NODE_ENV=development
 
@@ -42,8 +42,11 @@ RUN npm install
 
 COPY . .
 
-RUN npm run migrations:run
-
 EXPOSE $PORT
+
+# RUN npm run migrations:run
+
+RUN chmod +x entrypoint.sh    # if required
+ENTRYPOINT ["./entrypoint.sh"]
 CMD ["npm", "run", "start:dev"]
 # CMD ["npm", "run",  "migrations:run", "&&", "start:dev"]
