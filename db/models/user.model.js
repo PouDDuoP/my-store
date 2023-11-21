@@ -32,6 +32,11 @@ const UserSchema = {
     allowNull: false,
     type: DataTypes.STRING
   },
+  profile: {
+    allowNull: false,
+    type: DataTypes.STRING,
+    defaultValue: 'customer'
+  },
   createdAt: {
     allowNull: false,
     type: DataTypes.DATE,
