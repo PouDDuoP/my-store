@@ -10,11 +10,11 @@ const categoryId = Joi.number().integer();
 const isActive = Joi.boolean().default(true);
 
 const createProductSchema = Joi.object({
-    name: name.required(),
-    description: description,
-    price: price.required(),
-    image: image.required(),
-    categoryId: categoryId.required()
+  name: name.required(),
+  description: description,
+  price: price.required(),
+  image: image.required(),
+  categoryId: categoryId.required()
 });
 
 const updateProductSchema = Joi.object({

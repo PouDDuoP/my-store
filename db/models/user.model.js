@@ -4,44 +4,55 @@ const USER_TABLE = 'users';
 
 const UserSchema = {
   id: {
-    allowNull: false,
+    type: DataTypes.INTEGER,
     autoIncrement: true,
     primaryKey: true,
-    type: DataTypes.INTEGER
+    allowNull: false
   },
   username: {
-    allowNull: false,
     type: DataTypes.STRING,
+    allowNull: false,
     unique: true
   },
   email: {
-    allowNull: false,
     type: DataTypes.STRING,
+    allowNull: false
   },
   firstName: {
-    allowNull: false,
     type: DataTypes.STRING,
-    field: 'first_name'
+    field: 'first_name',
+    allowNull: false
   },
   lastName: {
-    allowNull: false,
     type: DataTypes.STRING,
-    field: 'last_name'
+    field: 'last_name',
+    allowNull: false
   },
   password: {
-    allowNull: false,
-    type: DataTypes.STRING
-  },
-  profile: {
-    allowNull: false,
     type: DataTypes.STRING,
-    defaultValue: 'customer'
+    allowNull: false
   },
+  // profile: {
+    //   type: DataTypes.STRING,
+    //   defaultValue: 'customer',
+    //   allowNull: false
+  // },
   createdAt: {
-    allowNull: false,
     type: DataTypes.DATE,
     field: 'create_at',
-    defaultValue: Sequelize.NOW
+    defaultValue: Sequelize.NOW,
+    allowNull: false
+  },
+  isSuperuser: {
+    type: DataTypes.BOOLEAN,
+    field: 'is_superuser',
+    allowNull: false
+  },
+  isActive: {
+    type: DataTypes.DATE,
+    field: 'is_active',
+    defaultValue: Sequelize.NOW,
+    allowNull: false
   }
 }
 
