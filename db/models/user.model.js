@@ -11,8 +11,8 @@ const UserSchema = {
   },
   username: {
     type: DataTypes.STRING,
-    allowNull: false,
-    unique: true
+    unique: true,
+    allowNull: false
   },
   email: {
     type: DataTypes.STRING,
@@ -33,9 +33,9 @@ const UserSchema = {
     allowNull: false
   },
   profile: {
-      type: DataTypes.STRING,
-      defaultValue: 'customer',
-      allowNull: false
+    type: DataTypes.STRING,
+    defaultValue: 'basic',
+    allowNull: false
   },
   createdAt: {
     type: DataTypes.DATE,
