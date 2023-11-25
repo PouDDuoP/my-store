@@ -10,7 +10,8 @@ const isActive = Joi.boolean().default(true);
 const createCategorySchema = Joi.object({
   name: name.required(),
   description: description,
-  image: image.required()
+  image: image.required(),
+  isActive: isActive
 });
 
 const updateCategorySchema = Joi.object({

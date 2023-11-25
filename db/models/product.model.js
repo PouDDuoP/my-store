@@ -15,7 +15,7 @@ const ProductSchema = {
     allowNull: false
   },
   description: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING
   },
   image: {
     type: DataTypes.STRING
@@ -29,6 +29,7 @@ const ProductSchema = {
   isActive: {
     type: DataTypes.BOOLEAN,
     field: 'is_active',
+    defaultValue: false,
     allowNull: false
   },
   categoryId: {
