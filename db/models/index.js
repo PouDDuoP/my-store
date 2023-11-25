@@ -9,6 +9,7 @@ function setupModels(sequelize) {
 
   // relationship
   Product.associate(sequelize.models);
+  Category.associate(sequelize.models);
 }
 
 module.exports = setupModels;
