@@ -32,11 +32,11 @@ const UserSchema = {
     type: DataTypes.STRING,
     allowNull: false
   },
-  // profile: {
-    //   type: DataTypes.STRING,
-    //   defaultValue: 'customer',
-    //   allowNull: false
-  // },
+  profile: {
+      type: DataTypes.STRING,
+      defaultValue: 'customer',
+      allowNull: false
+  },
   createdAt: {
     type: DataTypes.DATE,
     field: 'create_at',
@@ -46,12 +46,13 @@ const UserSchema = {
   isSuperuser: {
     type: DataTypes.BOOLEAN,
     field: 'is_superuser',
+    defaultValue: false,
     allowNull: false
   },
   isActive: {
-    type: DataTypes.DATE,
+    type: DataTypes.BOOLEAN,
     field: 'is_active',
-    defaultValue: Sequelize.NOW,
+    defaultValue: false,
     allowNull: false
   }
 }
