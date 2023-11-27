@@ -58,8 +58,11 @@ const UserSchema = {
 }
 
 class User extends Model {
-  static associate() {
-
+  static associate(models) {
+    this.hasOne(models.Tier, {
+      as: 'tier',
+      foreignKey: 'userId'
+    });
   }
 
   static config(sequelize) {
