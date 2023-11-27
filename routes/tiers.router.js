@@ -1,27 +1,27 @@
 const express = require("express");
-const UsersService = require("../services/user.service");
+const TierService = require("../services/tier.service");
 const validatorHandler = require("../middleware/validator.handler");
-const { createUserSchema, updateUserSchema, getUserSchema } = require('../schemas/user.schema');
+const { createTierSchema, updateTierSchema, getTierSchema } = require('../schemas/tier.schema');
 
 const router = express.Router();
-const service = new UsersService();
+const service = new TierService();
 
 router.get('/', async (req, res, next) => {
   try {
-    const users = await service.find();
-    res.json(users);
+    const tiers = await service.find();
+    res.json(tiers);
   } catch (error) {
     next(error);
   }
 });
 
 router.get('/:id',
-  validatorHandler(getUserSchema, 'params'),
+  validatorHandler(getTierSchema, 'params'),
   async (req, res, next) => {
     try {
       const { id } = req.params;
-      const user = await service.findOne(id);
-      res.json(user);
+      const tier = await service.findOne(id);
+      res.json(tier);
     } catch (error) {
       next(error);
     }
@@ -29,12 +29,12 @@ router.get('/:id',
 );
 
 router.post('/',
-  validatorHandler(createUserSchema, 'body'),
+  validatorHandler(createTierSchema, 'body'),
   async (req, res, next) => {
     try {
       const body = req.body;
-      const newUser = await service.create(body);
-      res.status(201).json(newUser);
+      const newTier = await service.create(body);
+      res.status(201).json(newTier);
     } catch (error) {
       next(error);
     }
@@ -42,8 +42,8 @@ router.post('/',
 );
 
 router.patch('/:id',
-  validatorHandler(getUserSchema, 'params'),
-  validatorHandler(updateUserSchema, 'body'),
+  validatorHandler(getTierSchema, 'params'),
+  validatorHandler(updateTierSchema, 'body'),
   async (req, res, next) => {
     try {
       const { id } = req.params;
@@ -57,7 +57,7 @@ router.patch('/:id',
 );
 
 router.delete('/:id',
-  validatorHandler(getUserSchema, 'params'),
+  validatorHandler(getTierSchema, 'params'),
   async (req, res, next) => {
     try {
       const { id } = req.params;
