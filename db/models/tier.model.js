@@ -12,7 +12,6 @@ const TierSchema = {
   },
   name: {
     type: DataTypes.STRING,
-    field: 'first_name',
     allowNull: false
   },
   image: {
@@ -43,7 +42,7 @@ const TierSchema = {
   }
 }
 
-class User extends Model {
+class Tier extends Model {
   static associate(models) {
     this.belongsTo(models.User, {as: 'user'});
   }
@@ -58,4 +57,4 @@ class User extends Model {
   }
 }
 
-module.exports = { TIER_TABLE, TierSchema, User }
+module.exports = { TIER_TABLE, TierSchema, Tier }
