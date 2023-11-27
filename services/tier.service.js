@@ -11,10 +11,8 @@ class TierService {
   }
 
   async create(data) {
-    const newUser = await models.User.create(data.user);
-    const newTier = await models.Tier.create({
-      ...data,
-      userId: newUser.id
+    const newTier = await models.Tier.create(data, {
+      include: ['user']
     });
     return newTier;
   }
