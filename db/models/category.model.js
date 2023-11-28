@@ -36,7 +36,7 @@ const CategorySchema = {
 
 class Category extends Model {
   static associate(models) {
-    this.hasOne(models.Product, {
+    this.hasMany(models.Product, {
       as: 'product',
       foreignKey: 'categoryId'
     });

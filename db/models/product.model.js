@@ -26,6 +26,11 @@ const ProductSchema = {
     defaultValue: Sequelize.NOW,
     allowNull: false
   },
+  price: {
+    type: DataTypes.FLOAT,
+    defaultValue: 0,
+    allowNull: false
+  },
   isActive: {
     type: DataTypes.BOOLEAN,
     field: 'is_active',
