@@ -4,6 +4,7 @@ const { Product, ProductSchema } = require('./product.model');
 const { Tier, TierSchema } = require('./tier.model');
 const { Order, OrderSchema } = require('./order.model');
 const { Status, StatusSchema } = require('./status.model');
+const { OrderProduct, OrderProductSchema } = require('./order-product.model');
 
 function setupModels(sequelize) {
   // Models
@@ -13,6 +14,7 @@ function setupModels(sequelize) {
   Product.init(ProductSchema, Product.config(sequelize));
   Order.init(OrderSchema, Order.config(sequelize));
   Status.init(StatusSchema, Status.config(sequelize));
+  OrderProduct.init(OrderProductSchema, OrderProduct.config(sequelize));
 
   // Relationship
   User.associate(sequelize.models);

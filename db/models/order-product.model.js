@@ -1,14 +1,18 @@
 const { Model, DataTypes, Sequelize } = require('sequelize');
-const { TIER_TABLE } = require('./tier.model');
-const { STATUS_TABLE } = require('./status.model');
+const { ORDER_TABLE } = require('./order.model');
+const { PRODUCT_TABLE } = require('./product.model');
 
-const ORDER_TABLE = 'orders';
+const ORDER_PRODUCT_TABLE = 'orders_products';
 
-const OrderSchema = {
+const OrderProductSchema = {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
     primaryKey: true,
+    allowNull: false
+  },
+  amount: {
+    type: DataTypes.INTEGER,
     allowNull: false
   },
   createdAt: {
@@ -23,24 +27,23 @@ const OrderSchema = {
     defaultValue: false,
     allowNull: false
   },
-  tierId: {
+  orderId: {
     type: DataTypes.INTEGER,
-    field: 'tier_id',
+    field: 'order_id',
     allowNull: false,
     references: {
-      model: TIER_TABLE,
+      model: ORDER_TABLE,
       key: 'id'
     },
     onUpdate: 'CASCADE',
     onDelete: 'SET NULL'
   },
-  statusId: {
+  productId: {
     type: DataTypes.INTEGER,
-    field: 'status_id',
-    defaultValue: 2,
+    field: 'product_id',
     allowNull: false,
     references: {
-      model: STATUS_TABLE,
+      model: PRODUCT_TABLE,
       key: 'id'
     },
     onUpdate: 'CASCADE',
@@ -48,26 +51,18 @@ const OrderSchema = {
   }
 }
 
-class Order extends Model {
-  static associate(models) {
-    this.belongsTo(models.Tier, {as: 'tier'});
-    this.belongsTo(models.Status, {as: 'status'});
-    this.belongsToMany(models.Product, {
-      as: 'products',
-      through: models.OrderProduct,
-      foreignKey: 'orderId',
-      otherKey: 'productId'
-    });
+class OrderProduct extends Model {
+  static associate() {
   }
 
   static config(sequelize) {
     return {
       sequelize,
-      tableName: ORDER_TABLE,
-      modelName: 'Order',
+      tableName: ORDER_PRODUCT_TABLE,
+      modelName: 'OrderProduct',
       timestamps: false
     }
   }
 }
 
-module.exports = { ORDER_TABLE, OrderSchema, Order }
+module.exports = { ORDER_PRODUCT_TABLE, OrderProductSchema, OrderProduct }
