@@ -15,6 +15,11 @@ class OrderService {
     return newOrder;
   }
 
+  async addProduct(data) {
+    const newAddProduct = await models.OrderProduct.create(data);
+    return newAddProduct;
+  }
+
   async find() {
     const response = await models.Order.findAll({
       include: [
@@ -22,7 +27,8 @@ class OrderService {
           association: 'tier',
           include: ['user']
         },
-        'status'
+        'status',
+        'products'
       ]
     });
     return response;
@@ -35,7 +41,8 @@ class OrderService {
           association: 'tier',
           include: ['user']
         },
-        'status'
+        'status',
+        'products'
       ]
     });
     if (!order) {

@@ -45,6 +45,17 @@ const OrderSchema = {
     },
     onUpdate: 'CASCADE',
     onDelete: 'SET NULL'
+  },
+  total: {
+    type: DataTypes.VIRTUAL,
+    get() {
+      if (this.products.length > 0) {
+        return this.products.reduce((total, product) => {
+          return total + product.price * product.OrderProduct.amount;
+        }, 0);
+      }
+      return 0;
+    }
   }
 }
 
