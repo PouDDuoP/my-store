@@ -1,27 +1,27 @@
 const express = require("express");
-const TierService = require("../services/tier.service");
+const StatusService = require("../services/status.service");
 const validatorHandler = require("../middleware/validator.handler");
-const { createTierSchema, updateTierSchema, getTierSchema } = require('../schemas/tier.schema');
+const { createStatusSchema, updateStatusSchema, getStatusSchema } = require('../schemas/status.schema');
 
 const router = express.Router();
-const service = new TierService();
+const service = new StatusService();
 
 router.get('/', async (req, res, next) => {
   try {
-    const tiers = await service.find();
-    res.json(tiers);
+    const status = await service.find();
+    res.json(status);
   } catch (error) {
     next(error);
   }
 });
 
 router.get('/:id',
-  validatorHandler(getTierSchema, 'params'),
+  validatorHandler(getStatusSchema, 'params'),
   async (req, res, next) => {
     try {
       const { id } = req.params;
-      const tier = await service.findOne(id);
-      res.json(tier);
+      const status = await service.findOne(id);
+      res.json(status);
     } catch (error) {
       next(error);
     }
@@ -29,12 +29,12 @@ router.get('/:id',
 );
 
 router.post('/',
-  validatorHandler(createTierSchema, 'body'),
+  validatorHandler(createStatusSchema, 'body'),
   async (req, res, next) => {
     try {
       const body = req.body;
-      const newTier = await service.create(body);
-      res.status(201).json(newTier);
+      const newStatus = await service.create(body);
+      res.status(201).json(newStatus);
     } catch (error) {
       next(error);
     }
@@ -42,14 +42,14 @@ router.post('/',
 );
 
 router.patch('/:id',
-  validatorHandler(getTierSchema, 'params'),
-  validatorHandler(updateTierSchema, 'body'),
+  validatorHandler(getStatusSchema, 'params'),
+  validatorHandler(updateStatusSchema, 'body'),
   async (req, res, next) => {
     try {
       const { id } = req.params;
       const body = req.body;
-      const tier = await service.update(id, body);
-      res.json(tier);
+      const status = await service.update(id, body);
+      res.json(status);
     } catch (error) {
       next(error);
     }
@@ -57,7 +57,7 @@ router.patch('/:id',
 );
 
 router.delete('/:id',
-  validatorHandler(getTierSchema, 'params'),
+  validatorHandler(getStatusSchema, 'params'),
   async (req, res, next) => {
     try {
       const { id } = req.params;

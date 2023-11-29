@@ -1,21 +1,15 @@
 const { Model, DataTypes, Sequelize } = require('sequelize');
-const { USER_TABLE } = require('./user.model')
+const { TIER_TABLE } = require('./tier.model');
+const { STATUS_TABLE } = require('./status.model');
 
-const TIER_TABLE = 'tiers';
+const ORDER_TABLE = 'orders';
 
-const TierSchema = {
+const OrderSchema = {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
     primaryKey: true,
     allowNull: false
-  },
-  name: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  image: {
-    type: DataTypes.STRING
   },
   createdAt: {
     type: DataTypes.DATE,
@@ -29,12 +23,24 @@ const TierSchema = {
     defaultValue: false,
     allowNull: false
   },
-  userId: {
+  tierId: {
     type: DataTypes.INTEGER,
-    field: 'user_id',
+    field: 'tier_id',
     allowNull: false,
     references: {
-      model: USER_TABLE,
+      model: TIER_TABLE,
+      key: 'id'
+    },
+    onUpdate: 'CASCADE',
+    onDelete: 'SET NULL'
+  },
+  statusId: {
+    type: DataTypes.INTEGER,
+    field: 'status_id',
+    defaultValue: 2,
+    allowNull: false,
+    references: {
+      model: STATUS_TABLE,
       key: 'id'
     },
     onUpdate: 'CASCADE',
@@ -42,23 +48,20 @@ const TierSchema = {
   }
 }
 
-class Tier extends Model {
+class Order extends Model {
   static associate(models) {
-    this.belongsTo(models.User, {as: 'user'});
-    this.hasMany(models.Order, {
-      as: 'orders',
-      foreignKey: 'tierId'
-    });
+    this.belongsTo(models.Tier, {as: 'tier'});
+    this.belongsTo(models.Status, {as: 'status'});
   }
 
   static config(sequelize) {
     return {
       sequelize,
-      tableName: TIER_TABLE,
-      modelName: 'Tier',
+      tableName: ORDER_TABLE,
+      modelName: 'Order',
       timestamps: false
     }
   }
 }
 
-module.exports = { TIER_TABLE, TierSchema, Tier }
+module.exports = { ORDER_TABLE, OrderSchema, Order }
