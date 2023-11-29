@@ -10,6 +10,7 @@ RUN apk update && add --no-cache dumb-init
 
 COPY package*.json $DIR
 
+RUN npm install
 RUN npm ci
 
 COPY . .
@@ -46,7 +47,7 @@ EXPOSE $PORT
 
 # RUN npm run migrations:run
 
-RUN chmod +x entrypoint.sh    # if required
-ENTRYPOINT ["./entrypoint.sh"]
+# RUN chmod +x entrypoint.sh    # if required
+# ENTRYPOINT ["./entrypoint.sh"]
 CMD ["npm", "run", "start:dev"]
 # CMD ["npm", "run",  "migrations:run", "&&", "start:dev"]
