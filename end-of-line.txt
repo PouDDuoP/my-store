@@ -1,0 +1,7 @@
+# para al levantar el docker genere error por el end of line ejecutar cambios en la configuracion de git con los siguientes comandos.
+
+git config core.autocrlf false
+git rm --cached -r .
+git reset --hard
+
+Fuente: https://stackoverflow.com/questions/49228693/how-to-change-the-eol-for-all-files-from-crlf-to-lf
