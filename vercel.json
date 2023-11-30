@@ -1,0 +1,8 @@
+{
+  "rewirtes": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/api"
+    }
+  ]
+}
