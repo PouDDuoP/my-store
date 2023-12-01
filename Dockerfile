@@ -48,6 +48,6 @@ EXPOSE $PORT
 # RUN npm run migrations:run
 
 # RUN chmod +x entrypoint.sh    # if required
-# ENTRYPOINT ["./entrypoint.sh"]
+ENTRYPOINT ["./entrypoint.sh"]
 CMD ["npm", "run", "start:dev"]
 # CMD ["npm", "run",  "migrations:run", "&&", "start:dev"]
