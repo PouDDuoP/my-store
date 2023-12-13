@@ -21,8 +21,8 @@ services:
   # Para desarrolllo
   app-dev:
     container_name: app-dev
-    # restart: always
-    restart: unless-stopped
+    restart: always
+    # restart: unless-stopped
     build:
       context: .
       target: development

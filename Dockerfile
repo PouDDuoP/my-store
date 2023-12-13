@@ -41,7 +41,7 @@ COPY package*.json $DIR
 
 RUN npm install
 
-COPY . .
+# COPY . .
 
 EXPOSE $PORT
 
