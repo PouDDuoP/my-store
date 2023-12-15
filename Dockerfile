@@ -41,13 +41,18 @@ COPY package*.json $DIR
 
 RUN npm install
 
+# En ociaciones da error por la linea de copy
 # COPY . .
 
 EXPOSE $PORT
 
 # RUN npm run migrations:run
 
-# RUN chmod +x entrypoint.sh    # if required
-ENTRYPOINT ["./entrypoint.sh"]
+RUN mkdir -p ./scripts
+
+COPY ./scripts/*.sh ./scripts
+
+RUN chmod +x ./scripts/entrypoint.sh  # if required
+ENTRYPOINT ["./scripts/entrypoint.sh"]
 CMD ["npm", "run", "start:dev"]
 # CMD ["npm", "run",  "migrations:run", "&&", "start:dev"]
