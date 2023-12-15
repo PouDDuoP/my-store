@@ -36,7 +36,9 @@
     "pg": "^8.11.3",
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.34.0",
-    "serve": "^14.2.1"
+    "serve": "^14.2.1",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.0"
   },
   "engines": {
     "node": "18.x"
