@@ -1,3 +1,133 @@
+/**
+  * @swagger
+  * components:
+  *   schemas:
+  *     Status:
+  *       type: object
+  *       required:
+  *         - name
+  *       properties:
+  *         id:
+  *           type: integer
+  *           description: The auto-generated id of the status
+  *         name:
+  *           type: string
+  *           description: The name of your status
+  *         isActive:
+  *           type: boolean
+  *           description: The indicator of whether the status is active
+  *         createdAt:
+  *           type: string
+  *           format: date
+  *           description: The date the status was added
+  *       example:
+  *         id: 1
+  *         name: Name of status
+  *         isActive: true
+  *         createdAt: 2024-03-10T04:05:06.157Z
+*/
+
+/**
+  * @swagger
+  * tags:
+  *   name: status
+  *   description: The status managing API
+  * /status:
+  *   get:
+  *     summary: Lists all the status
+  *     tags: [Status]
+  *     responses:
+  *       200:
+  *         description: The list of the status
+  *         content:
+  *           application/json:
+  *             schema:
+  *               type: array
+  *               items:
+  *                 $ref: '#/components/schemas/Status'
+  *   post:
+  *     summary: Create a new status
+  *     tags: [Status]
+  *     requestBody:
+  *       required: true
+  *       content:
+  *         application/json:
+  *           schema:
+  *             $ref: '#/components/schemas/Status'
+  *     responses:
+  *       200:
+  *         description: The created status.
+  *         content:
+  *           application/json:
+  *             schema:
+  *               $ref: '#/components/schemas/Status'
+  *       500:
+  *         description: Some server error
+  * /status/{id}:
+  *   get:
+  *     summary: Get the status by id
+  *     tags: [Status]
+  *     parameters:
+  *       - in: path
+  *         name: id
+  *         schema:
+  *           type: string
+  *         required: true
+  *         description: The status id
+  *     responses:
+  *       200:
+  *         description: The status response by id
+  *         content:
+  *           application/json:
+  *             schema:
+  *               $ref: '#/components/schemas/Status'
+  *       404:
+  *         description: The status was not found
+  *   put:
+  *     summary: Update the status by the id
+  *     tags: [Status]
+  *     parameters:
+  *       - in: path
+  *         name: id
+  *         schema:
+  *           type: string
+  *         required: true
+  *         description: The status id
+  *     requestBody:
+  *       required: true
+  *       content:
+  *         application/json:
+  *           schema:
+  *             $ref: '#/components/schemas/Status'
+  *     responses:
+  *       200:
+  *         description: The status was updated
+  *         content:
+  *           application/json:
+  *             schema:
+  *               $ref: '#/components/schemas/Status'
+  *       404:
+  *         description: The status was not found
+  *       500:
+  *         description: Some error happened
+  *   delete:
+  *     summary: Remove the status by id
+  *     tags: [Status]
+  *     parameters:
+  *       - in: path
+  *         name: id
+  *         schema:
+  *           type: string
+  *         required: true
+  *         description: The status id
+  *
+  *     responses:
+  *       200:
+  *         description: The status was deleted
+  *       404:
+  *         description: The status was not found
+*/
+
 const express = require("express");
 const StatusService = require("../services/status.service");
 const validatorHandler = require("../middleware/validator.handler");
