@@ -1,3 +1,150 @@
+/**
+  * @swagger
+  * components:
+  *   schemas:
+  *     Products:
+  *       type: object
+  *       required:
+  *         - name
+  *         - price
+  *         - image
+  *         - categoryId
+  *       properties:
+  *         id:
+  *           type: integer
+  *           description: The auto-generated id of the product
+  *         name:
+  *           type: string
+  *           description: The name of your product
+  *         description:
+  *           type: string
+  *           description: The description of your product
+  *         price:
+  *           type: number
+  *           description: The price of your product
+  *         image:
+  *           type: string
+  *           description: Image URL
+  *         categoryId:
+  *           type: integer
+  *           description: The category id  of your product
+  *         isActive:
+  *           type: boolean
+  *           description: The indicator of whether the product is active
+  *         createdAt:
+  *           type: string
+  *           format: date
+  *           description: The date the product was added
+  *       example:
+  *         id: 1
+  *         name: Title of product
+  *         price: 3.99
+  *         image: http://image.com/image.png
+  *         isActive: true
+  *         createdAt: 2024-03-10T04:05:06.157Z
+*/
+
+/**
+  * @swagger
+  * tags:
+  *   name: Products
+  *   description: The products managing API
+  * /products:
+  *   get:
+  *     summary: Lists all the products
+  *     tags: [Products]
+  *     responses:
+  *       200:
+  *         description: The list of the products
+  *         content:
+  *           application/json:
+  *             schema:
+  *               type: array
+  *               items:
+  *                 $ref: '#/components/schemas/Products'
+  *   post:
+  *     summary: Create a new product
+  *     tags: [Products]
+  *     requestBody:
+  *       required: true
+  *       content:
+  *         application/json:
+  *           schema:
+  *             $ref: '#/components/schemas/Products'
+  *     responses:
+  *       200:
+  *         description: The created product.
+  *         content:
+  *           application/json:
+  *             schema:
+  *               $ref: '#/components/schemas/Products'
+  *       500:
+  *         description: Some server error
+  * /products/{id}:
+  *   get:
+  *     summary: Get the product by id
+  *     tags: [Products]
+  *     parameters:
+  *       - in: path
+  *         name: id
+  *         schema:
+  *           type: string
+  *         required: true
+  *         description: The product id
+  *     responses:
+  *       200:
+  *         description: The product response by id
+  *         content:
+  *           application/json:
+  *             schema:
+  *               $ref: '#/components/schemas/Products'
+  *       404:
+  *         description: The product was not found
+  *   put:
+  *     summary: Update the product by the id
+  *     tags: [Products]
+  *     parameters:
+  *       - in: path
+  *         name: id
+  *         schema:
+  *           type: string
+  *         required: true
+  *         description: The product id
+  *     requestBody:
+  *       required: true
+  *       content:
+  *         application/json:
+  *           schema:
+  *             $ref: '#/components/schemas/Products'
+  *     responses:
+  *       200:
+  *         description: The product was updated
+  *         content:
+  *           application/json:
+  *             schema:
+  *               $ref: '#/components/schemas/Products'
+  *       404:
+  *         description: The product was not found
+  *       500:
+  *         description: Some error happened
+  *   delete:
+  *     summary: Remove the product by id
+  *     tags: [Products]
+  *     parameters:
+  *       - in: path
+  *         name: id
+  *         schema:
+  *           type: string
+  *         required: true
+  *         description: The product id
+  *
+  *     responses:
+  *       200:
+  *         description: The product was deleted
+  *       404:
+  *         description: The product was not found
+*/
+
 const express = require("express");
 const ProductsService = require("../services/product.services");
 const validatorHandler = require("../middleware/validator.handler");
