@@ -1,7 +1,9 @@
 const express = require("express");
 const cors = require("cors");
 const routerApi = require("./routes");
-const { swaggerDocs: V1SwaggerDocs } = require('./routes/swagger');
+
+const swaggerJSDoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
 
 const { logErrors, errorHandler, boomErrorHandler, ormErrorHandler } = require('./middleware/error.handler');
 
@@ -23,6 +25,42 @@ const options = {
 }
 app.use(cors(options));
 
+const swaggerDefinition = {
+  explorer: true,
+  openapi: "3.1.0",
+  info: {
+    title: "My Store Express API with Swagger",
+    version: "1.0.0",
+    description:
+      "This is a simple CRUD API application made with Express and documented with Swagger",
+  },
+  servers: [
+    {
+      url: "http://localhost:3000/api/v1",
+    },
+  ],
+  schemes: ['http'],
+  host: 'localhost:3000',
+  basePath: '/api/v1',
+  // paths: {
+  //   path: {
+  //     '/categories/': [Object]
+  //   }
+  // },
+};
+
+const swaggerOptions = {
+  definition: swaggerDefinition,
+  apis: ["./api/routes/*.js"]
+};
+
+const swaggerSpec = swaggerJSDoc(swaggerOptions);
+
+app.use("/api/v1/docs",
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerSpec, { explorer: true })
+);
+
 app.get('/api/', (req, res) => {
   res.send('Hola este el servicio express');
 });
@@ -40,7 +78,6 @@ app.use(errorHandler);
 
 app.listen(port, () => {
   console.log(`My port ${port}`);
-  V1SwaggerDocs(app, port);
 });
 
 // console.log('My App');
