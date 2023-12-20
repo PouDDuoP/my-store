@@ -38,8 +38,10 @@
   *       example:
   *         id: 1
   *         name: Title of product
+  *         description: Description of product
   *         price: 3.99
   *         image: http://image.com/image.png
+  *         categoryId: 1
   *         isActive: true
   *         createdAt: 2024-03-10T04:05:06.157Z
 */
