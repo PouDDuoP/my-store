@@ -1,4 +1,4 @@
-const swaggerJsDoc = require('swagger-jsdoc');
+const swaggerJSDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 
 // app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
@@ -14,15 +14,6 @@ const swaggerDefinition = {
     version: "1.0.0",
     description:
       "This is a simple CRUD API application made with Express and documented with Swagger",
-    // license: {
-    //   name: "MIT",
-    //   url: "http://localhost:3000",
-    // },
-    // contact: {
-    //   name: "MyStore",
-    //   url: "http://localhost:3000",
-    //   email: "kkk@email.com",
-    // },
   },
   servers: [
     {
@@ -40,27 +31,26 @@ const swaggerDefinition = {
 };
 
 const swaggerOptions = {
-  swaggerDefinition,
+  definition: swaggerDefinition,
   // apis: ["./api/routes/index.js"]
   apis: ["./api/routes/*.js"]
 };
 
-const swaggerSpecs = swaggerJsDoc(swaggerOptions);
+const swaggerSpec = swaggerJSDoc(swaggerOptions);
 
 const swaggerDocs = (app, port) => {
   app.use("/api/v1/docs",
     swaggerUi.serve,
-    swaggerUi.setup(swaggerSpecs, { explorer: true })
+    swaggerUi.setup(swaggerSpec)
+    // swaggerUi.setup(swaggerSpec, { explorer: true })
   );
   app.get("/api/v1/docs.json", (req, res) => {
     res.setHeader("Content-Type", "application/json");
-    res.send(swaggerSpecs);
+    res.send(swaggerSpec);
   });
 
-  console.log(
-    `Version 1 Docs are available at http://localhost:${port}/api/v1/docs`
-  );
-  
+  console.log(`Version 1 Docs are available at http://localhost:${port}/api/v1/docs`);
+
 }
 
 // app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(null, options_));
@@ -69,4 +59,4 @@ const swaggerDocs = (app, port) => {
 
 // https://www.youtube.com/watch?v=RayDPBYou4I
 
-module.export = { swaggerDocs }
+module.export = { swaggerDocs };
