@@ -1,3 +1,158 @@
+/**
+  * @swagger
+  * components:
+  *   schemas:
+  *     Users:
+  *       type: object
+  *       required:
+  *         - username
+  *         - email
+  *         - password
+  *         - firstName
+  *         - lastName
+  *         - profile
+  *       properties:
+  *         id:
+  *           type: integer
+  *           description: The auto-generated id of the user
+  *         username:
+  *           type: string
+  *           description: The username of your user
+  *         email:
+  *           type: string
+  *           description: The email of your user
+  *         password:
+  *           type: string
+  *           description: The password of your user
+  *         firstName:
+  *           type: string
+  *           description: The first name of your user
+  *         lastName:
+  *           type: string
+  *           description: The last name of your user
+  *         profile:
+  *           type: string
+  *           description: The profile of your user
+  *         isActive:
+  *           type: boolean
+  *           description: The indicator of whether the user is active
+  *         createdAt:
+  *           type: string
+  *           description: The date the user was added
+  *       example:
+  *         id: 1
+  *         username: Username
+  *         email: example@gmail.com
+  *         password: aaabbb1234
+  *         firstName: First name of user
+  *         lastName: Last name of user
+  *         profile: basic
+  *         isActive: true
+  *         createdAt: 2024-03-10T04:05:06.157Z
+  *
+*/
+
+/**
+  * @swagger
+  * tags:
+  *   name: Users
+  *   description: The users managing API
+  * /users:
+  *   get:
+  *     summary: Lists all the users
+  *     tags: [Users]
+  *     responses:
+  *       200:
+  *         description: The list of the users
+  *         content:
+  *           application/json:
+  *             schema:
+  *               type: array
+  *               items:
+  *                 $ref: '#/components/schemas/Users'
+  *   post:
+  *     summary: Create a new User
+  *     tags: [Users]
+  *     requestBody:
+  *       required: true
+  *       content:
+  *         application/json:
+  *           schema:
+  *             $ref: '#/components/schemas/Users'
+  *     responses:
+  *       200:
+  *         description: The created User.
+  *         content:
+  *           application/json:
+  *             schema:
+  *               $ref: '#/components/schemas/Users'
+  *       500:
+  *         description: Some server error
+  * /Users/{id}:
+  *   get:
+  *     summary: Get the User by id
+  *     tags: [Users]
+  *     parameters:
+  *       - in: path
+  *         name: id
+  *         schema:
+  *           type: string
+  *         required: true
+  *         description: The User id
+  *     responses:
+  *       200:
+  *         description: The User response by id
+  *         content:
+  *           application/json:
+  *             schema:
+  *               $ref: '#/components/schemas/Users'
+  *       404:
+  *         description: The User was not found
+  *   put:
+  *     summary: Update the User by the id
+  *     tags: [Users]
+  *     parameters:
+  *       - in: path
+  *         name: id
+  *         schema:
+  *           type: string
+  *         required: true
+  *         description: The User id
+  *     requestBody:
+  *       required: true
+  *       content:
+  *         application/json:
+  *           schema:
+  *             $ref: '#/components/schemas/Users'
+  *     responses:
+  *       200:
+  *         description: The User was updated
+  *         content:
+  *           application/json:
+  *             schema:
+  *               $ref: '#/components/schemas/Users'
+  *       404:
+  *         description: The User was not found
+  *       500:
+  *         description: Some error happened
+  *   delete:
+  *     summary: Remove the User by id
+  *     tags: [Users]
+  *     parameters:
+  *       - in: path
+  *         name: id
+  *         schema:
+  *           type: string
+  *         required: true
+  *         description: The User id
+  *
+  *     responses:
+  *       200:
+  *         description: The User was deleted
+  *       404:
+  *         description: The User was not found
+*/
+
 const express = require("express");
 const UsersService = require("../services/user.service");
 const validatorHandler = require("../middleware/validator.handler");
