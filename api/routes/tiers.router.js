@@ -44,7 +44,7 @@
   *               type: string
   *               description: The last name of your user
   *             profile:
-  *               type: integer
+  *               type: string
   *               description: The profile of your user
   *             isActive:
   *               type: boolean
@@ -75,8 +75,6 @@
   *            createdAt: 2024-03-10T04:05:06.157Z
   *
 */
-
-
 
 /**
   * @swagger
