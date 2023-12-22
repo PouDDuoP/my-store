@@ -12,7 +12,7 @@ const amount = Joi.number().integer().min(1);
 const createOrderSchema = Joi.object({
   isActive: isActive,
   tierId: tierId.required(),
-  statusId: statusId
+  statusId: statusId.required()
 });
 
 const updateOrderSchema = Joi.object({
