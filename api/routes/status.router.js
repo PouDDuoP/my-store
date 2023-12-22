@@ -30,7 +30,7 @@
 /**
   * @swagger
   * tags:
-  *   name: status
+  *   name: Status
   *   description: The status managing API
   * /status:
   *   get:
