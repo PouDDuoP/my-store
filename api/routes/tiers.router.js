@@ -64,17 +64,19 @@
   *         name: Name of tier
   *         isActive: true
   *         createdAt: 2024-03-10T04:05:06.157Z
+  *         user:
+  *            username: root
+  *            email: kevinalvarado.ag@gmail.com
+  *            password: aaabbb1234
+  *            firstName: kevin tier 1
+  *            lastName: alvarado tier 1
+  *            profile: tier
+  *            isActive: true
+  *            createdAt: 2024-03-10T04:05:06.157Z
+  *
 */
 
-//          user:
-//            username: root
-//            email: kevinalvarado.ag@gmail.com
-//            password: **aaabbb1234
-//            firstName: kevin tier 1
-//            lastName: alvarado tier 1
-//            profile: tier
-//            isActive: true
-//            createdAt: 2024-03-10T04:05:06.157Z
+
 
 /**
   * @swagger
