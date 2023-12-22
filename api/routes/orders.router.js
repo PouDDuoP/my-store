@@ -1,3 +1,138 @@
+/**
+  * @swagger
+  * components:
+  *   schemas:
+  *     Orders:
+  *       type: object
+  *       required:
+  *         - tierId
+  *         - statusId
+  *       properties:
+  *         id:
+  *           type: integer
+  *           description: The auto-generated id of the user
+  *         tierId:
+  *           type: integer
+  *           description: The tier id of your user
+  *         statusId:
+  *           type: integer
+  *           description: The status id of your user
+  *         isActive:
+  *           type: boolean
+  *           description: The indicator of whether the user is active
+  *         createdAt:
+  *           type: string
+  *           description: The date the user was added
+  *       example:
+  *         id: 1
+  *         tierId: 1
+  *         statusId: 2
+  *         isActive: true
+  *         createdAt: 2024-03-10T04:05:06.157Z
+  *
+*/
+
+/**
+  * @swagger
+  * tags:
+  *   name: Orders
+  *   description: The orders managing API
+  * /orders:
+  *   get:
+  *     summary: Lists all the orders
+  *     tags: [Orders]
+  *     responses:
+  *       200:
+  *         description: The list of the orders
+  *         content:
+  *           application/json:
+  *             schema:
+  *               type: array
+  *               items:
+  *                 $ref: '#/components/schemas/Orders'
+  *   post:
+  *     summary: Create a new Order
+  *     tags: [Orders]
+  *     requestBody:
+  *       required: true
+  *       content:
+  *         application/json:
+  *           schema:
+  *             $ref: '#/components/schemas/Orders'
+  *     responses:
+  *       200:
+  *         description: The created Order.
+  *         content:
+  *           application/json:
+  *             schema:
+  *               $ref: '#/components/schemas/Orders'
+  *       500:
+  *         description: Some server error
+  * /Orders/{id}:
+  *   get:
+  *     summary: Get the Order by id
+  *     tags: [Orders]
+  *     parameters:
+  *       - in: path
+  *         name: id
+  *         schema:
+  *           type: string
+  *         required: true
+  *         description: The Order id
+  *     responses:
+  *       200:
+  *         description: The Order response by id
+  *         content:
+  *           application/json:
+  *             schema:
+  *               $ref: '#/components/schemas/Orders'
+  *       404:
+  *         description: The Order was not found
+  *   put:
+  *     summary: Update the Order by the id
+  *     tags: [Orders]
+  *     parameters:
+  *       - in: path
+  *         name: id
+  *         schema:
+  *           type: string
+  *         required: true
+  *         description: The Order id
+  *     requestBody:
+  *       required: true
+  *       content:
+  *         application/json:
+  *           schema:
+  *             $ref: '#/components/schemas/Orders'
+  *     responses:
+  *       200:
+  *         description: The Order was updated
+  *         content:
+  *           application/json:
+  *             schema:
+  *               $ref: '#/components/schemas/Orders'
+  *       404:
+  *         description: The Order was not found
+  *       500:
+  *         description: Some error happened
+  *   delete:
+  *     summary: Remove the Order by id
+  *     tags: [Orders]
+  *     parameters:
+  *       - in: path
+  *         name: id
+  *         schema:
+  *           type: string
+  *         required: true
+  *         description: The Order id
+  *
+  *     responses:
+  *       200:
+  *         description: The Order was deleted
+  *       404:
+  *         description: The Order was not found
+*/
+
 const express = require("express");
 const OrderService = require("../services/order.service");
 const validatorHandler = require("../middleware/validator.handler");
