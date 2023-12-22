@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const routerApi = require("./routes");
+const { checkApiKey } = require('./middleware/auth.handler');
 
 const swaggerJSDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
@@ -65,7 +66,7 @@ app.get('/api/', (req, res) => {
   res.send('Hola este el servicio express');
 });
 
-app.get('/api/new-route', (req, res) => {
+app.get('/api/new-route', checkApiKey, (req, res) => {
   res.send('Hola esta es una nueva ruta');
 });
 
