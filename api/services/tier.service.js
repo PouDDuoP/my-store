@@ -1,4 +1,5 @@
 const boom = require("@hapi/boom");
+const bcrypt = require('bcrypt');
 
 const { models } = require('../libs/sequelize');
 
@@ -11,9 +12,18 @@ class TierService {
   }
 
   async create(data) {
-    const newTier = await models.Tier.create(data, {
+    const hash = await bcrypt.hash(data.user.password, 10);
+    const newData = {
+      ...data,
+      user: {
+        ...data.user,
+        password: hash
+      }
+    }
+    const newTier = await models.Tier.create(newData, {
       include: ['user']
     });
+    delete newTier.dataValues.user.dataValues.password;
     return newTier;
   }
 
