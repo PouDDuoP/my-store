@@ -26,6 +26,8 @@ const options = {
 }
 app.use(cors(options));
 
+require('./utils/auth');
+
 const swaggerDefinition = {
   explorer: true,
   openapi: "3.1.0",

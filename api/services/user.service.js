@@ -30,6 +30,13 @@ class UserService {
     return response;
   }
 
+  async findByUsername(username) {
+    const response = await models.User.findOne({
+      where: { username }
+    });
+    return response;
+  }
+
   async findOne(id) {
     const user = await models.User.findByPk(id);
     if (!user) {
