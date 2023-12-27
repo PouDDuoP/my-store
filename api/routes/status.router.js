@@ -129,6 +129,8 @@
 */
 
 const express = require("express");
+const passport = require("passport");
+
 const StatusService = require("../services/status.service");
 const validatorHandler = require("../middleware/validator.handler");
 const { createStatusSchema, updateStatusSchema, getStatusSchema } = require('../schemas/status.schema');
@@ -159,6 +161,7 @@ router.get('/:id',
 );
 
 router.post('/',
+  passport.authenticate('jwt', {session: false}),
   validatorHandler(createStatusSchema, 'body'),
   async (req, res, next) => {
     try {
@@ -172,6 +175,7 @@ router.post('/',
 );
 
 router.patch('/:id',
+  passport.authenticate('jwt', {session: false}),
   validatorHandler(getStatusSchema, 'params'),
   validatorHandler(updateStatusSchema, 'body'),
   async (req, res, next) => {
@@ -187,6 +191,7 @@ router.patch('/:id',
 );
 
 router.delete('/:id',
+  passport.authenticate('jwt', {session: false}),
   validatorHandler(getStatusSchema, 'params'),
   async (req, res, next) => {
     try {
