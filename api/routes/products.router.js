@@ -160,7 +160,7 @@ const service = new ProductsService();
 
 router.get('/',
   passport.authenticate('jwt', {session: false}),
-  checkProfile(['admin', 'tier', 'customer']),
+  checkProfile('admin', 'tier', 'customer'),
   validatorHandler(queryProductSchema, 'query'),
   async (req, res, next) => {
     try {
@@ -178,7 +178,7 @@ router.get('/filter', (req, res) => {
 
 router.get('/:id',
   passport.authenticate('jwt', {session: false}),
-  checkProfile(['admin', 'tier', 'customer']),
+  checkProfile('admin', 'tier', 'customer'),
   validatorHandler(getProductSchema, 'params'),
   async (req, res, next) => {
     try {
@@ -209,7 +209,7 @@ router.post('/',
 
 router.patch('/:id',
   passport.authenticate('jwt', {session: false}),
-  checkProfile(['admin',]),
+  checkProfile('admin'),
   validatorHandler(getProductSchema, 'params'),
   validatorHandler(updateProductSchema, 'body'),
   async (req, res, next) => {
@@ -236,7 +236,7 @@ router.patch('/:id',
 
 router.delete('/:id',
   passport.authenticate('jwt', {session: false}),
-  checkProfile(['admin']),
+  checkProfile('admin'),
   validatorHandler(getProductSchema, 'params'),
   async (req, res, next) => {
     try {

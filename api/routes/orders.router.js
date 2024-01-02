@@ -138,21 +138,28 @@ const passport = require("passport");
 
 const OrderService = require("../services/order.service");
 const validatorHandler = require("../middleware/validator.handler");
+const { checkProfile } = require("../middleware/auth.handler");
 const { createOrderSchema, updateOrderSchema, getOrderSchema, addProductSchema } = require('../schemas/order.schema');
 
 const router = express.Router();
 const service = new OrderService();
 
-router.get('/', async (req, res, next) => {
-  try {
-    const orders = await service.find();
-    res.json(orders);
-  } catch (error) {
-    next(error);
+router.get('/',
+  passport.authenticate('jwt', {session: false}),
+  checkProfile('admin', 'tier', 'customer'),
+  async (req, res, next) => {
+    try {
+      const orders = await service.find();
+      res.json(orders);
+    } catch (error) {
+      next(error);
+    }
   }
-});
+);
 
 router.get('/:id',
+  passport.authenticate('jwt', {session: false}),
+  checkProfile('admin', 'tier', 'customer'),
   validatorHandler(getOrderSchema, 'params'),
   async (req, res, next) => {
     try {
@@ -167,6 +174,7 @@ router.get('/:id',
 
 router.post('/',
   passport.authenticate('jwt', {session: false}),
+  checkProfile('admin', 'tier', 'customer'),
   validatorHandler(createOrderSchema, 'body'),
   async (req, res, next) => {
     try {
@@ -181,6 +189,7 @@ router.post('/',
 
 router.patch('/:id',
   passport.authenticate('jwt', {session: false}),
+  checkProfile('admin', 'tier'),
   validatorHandler(getOrderSchema, 'params'),
   validatorHandler(updateOrderSchema, 'body'),
   async (req, res, next) => {
@@ -197,6 +206,7 @@ router.patch('/:id',
 
 router.delete('/:id',
   passport.authenticate('jwt', {session: false}),
+  checkProfile('admin'),
   validatorHandler(getOrderSchema, 'params'),
   async (req, res, next) => {
     try {
@@ -211,6 +221,7 @@ router.delete('/:id',
 
 router.post('/add-products',
   passport.authenticate('jwt', {session: false}),
+  checkProfile('admin', 'tier', 'customer'),
   validatorHandler(addProductSchema, 'body'),
   async (req, res, next) => {
     try {

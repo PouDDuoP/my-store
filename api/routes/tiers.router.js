@@ -182,21 +182,28 @@ const passport = require("passport");
 
 const TierService = require("../services/tier.service");
 const validatorHandler = require("../middleware/validator.handler");
+const { checkProfile } = require("../middleware/auth.handler");
 const { createTierSchema, updateTierSchema, getTierSchema } = require('../schemas/tier.schema');
 
 const router = express.Router();
 const service = new TierService();
 
-router.get('/', async (req, res, next) => {
-  try {
-    const tiers = await service.find();
-    res.json(tiers);
-  } catch (error) {
-    next(error);
+router.get('/',
+  passport.authenticate('jwt', {session: false}),
+  checkProfile('admin', 'tier'),
+  async (req, res, next) => {
+    try {
+      const tiers = await service.find();
+      res.json(tiers);
+    } catch (error) {
+      next(error);
+    }
   }
-});
+);
 
 router.get('/:id',
+  passport.authenticate('jwt', {session: false}),
+  checkProfile('admin', 'tier'),
   validatorHandler(getTierSchema, 'params'),
   async (req, res, next) => {
     try {
@@ -211,6 +218,7 @@ router.get('/:id',
 
 router.post('/',
   passport.authenticate('jwt', {session: false}),
+  checkProfile('admin', 'tier'),
   validatorHandler(createTierSchema, 'body'),
   async (req, res, next) => {
     try {
@@ -225,6 +233,7 @@ router.post('/',
 
 router.patch('/:id',
   passport.authenticate('jwt', {session: false}),
+  checkProfile('admin', 'tier'),
   validatorHandler(getTierSchema, 'params'),
   validatorHandler(updateTierSchema, 'body'),
   async (req, res, next) => {
@@ -241,6 +250,7 @@ router.patch('/:id',
 
 router.delete('/:id',
   passport.authenticate('jwt', {session: false}),
+  checkProfile('admin'),
   validatorHandler(getTierSchema, 'params'),
   async (req, res, next) => {
     try {

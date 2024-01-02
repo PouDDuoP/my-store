@@ -133,21 +133,28 @@ const passport = require("passport");
 
 const StatusService = require("../services/status.service");
 const validatorHandler = require("../middleware/validator.handler");
+const { checkProfile } = require("../middleware/auth.handler");
 const { createStatusSchema, updateStatusSchema, getStatusSchema } = require('../schemas/status.schema');
 
 const router = express.Router();
 const service = new StatusService();
 
-router.get('/', async (req, res, next) => {
-  try {
-    const status = await service.find();
-    res.json(status);
-  } catch (error) {
-    next(error);
+router.get('/',
+  passport.authenticate('jwt', {session: false}),
+  checkProfile('admin'),
+  async (req, res, next) => {
+    try {
+      const status = await service.find();
+      res.json(status);
+    } catch (error) {
+      next(error);
+    }
   }
-});
+);
 
 router.get('/:id',
+  passport.authenticate('jwt', {session: false}),
+  checkProfile('admin'),
   validatorHandler(getStatusSchema, 'params'),
   async (req, res, next) => {
     try {
@@ -162,6 +169,7 @@ router.get('/:id',
 
 router.post('/',
   passport.authenticate('jwt', {session: false}),
+  checkProfile('admin'),
   validatorHandler(createStatusSchema, 'body'),
   async (req, res, next) => {
     try {
@@ -176,6 +184,7 @@ router.post('/',
 
 router.patch('/:id',
   passport.authenticate('jwt', {session: false}),
+  checkProfile('admin'),
   validatorHandler(getStatusSchema, 'params'),
   validatorHandler(updateStatusSchema, 'body'),
   async (req, res, next) => {
@@ -192,6 +201,7 @@ router.patch('/:id',
 
 router.delete('/:id',
   passport.authenticate('jwt', {session: false}),
+  checkProfile('admin'),
   validatorHandler(getStatusSchema, 'params'),
   async (req, res, next) => {
     try {
