@@ -37,7 +37,7 @@ class OrderService {
   async findByUser(userId) {
     const response = await models.Order.findAll({
       where: {
-        '$tiers.user.id$': userId
+        '$tier.user.id$': userId
       },
       include: [
         {
