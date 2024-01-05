@@ -32,6 +32,11 @@ const UserSchema = {
     type: DataTypes.STRING,
     allowNull: false
   },
+  recoveryToken: {
+    type: DataTypes.STRING,
+    field: 'recovery_token',
+    allowNull: true
+  },
   profile: {
     type: DataTypes.STRING,
     defaultValue: 'basic',
