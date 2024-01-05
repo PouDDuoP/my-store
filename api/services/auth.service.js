@@ -36,11 +36,29 @@ class AuthService {
     };
   }
 
-  async sendMail(email) {
+  async sendRecovery(email) {
     const user = await service.findByEmail(email);
     if (!user) {
       throw boom.unauthorized();
     }
+    const payload = { sub: user.id };
+    const token = jwt.sign(payload, config.jwtSecret, {expiresIn: '15min'});
+    const link = `http://my-store.frontend.com/recovery?token=${token}`;
+    await service.update(user.id, { recoveryToken: token });
+    const mail = {
+      from: config.emailUser, // sender address
+      to: `${user.email}`, // list of receivers
+      subject: "Email para recuperar la contraseña", // Subject line
+      html: `<b>Ingresa al siguiente link: ${link}</b>`, // html body
+    }
+
+    const response = await this.sendMail(mail);
+
+    return response;
+
+  }
+
+  async sendMail(infoMail) {
     const transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
       port: 465,
@@ -51,13 +69,7 @@ class AuthService {
         pass: config.emailPassword
       }
     });
-    await transporter.sendMail({
-      from: config.emailUser, // sender address
-      to: `${user.email}`, // list of receivers
-      subject: "Hello ✔ Job Oportunity", // Subject line
-      text: "Hello world?", // plain text body
-      html: "<b>Hello world?</b>", // html body
-    });
+    await transporter.sendMail(infoMail);
 
     return { message: 'mail sent' };
   }
