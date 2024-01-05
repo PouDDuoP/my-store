@@ -10,6 +10,7 @@ npm uninstall bcrypt
 # install the bcrypt modules for the machine
 npm install bcrypt
 
+# npm run migrations:revert recovery-token-field # Reverse migrations
 npm run migrations:run  # Run migrations
 # npm run seed     # Preload initial data
 exec "$@"
