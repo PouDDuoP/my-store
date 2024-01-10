@@ -20,6 +20,7 @@ class UserService {
       password: hash
     });
     delete newUser.dataValues.password;
+    delete newUser.dataValues.recoveryToken;
     return newUser;
   }
 
@@ -60,6 +61,7 @@ class UserService {
     const user = await this.findOne(id);
     const response = await user.update(changes);
     delete response.dataValues.password;
+    delete response.dataValues.recoveryToken;
     return response;
   }
 
