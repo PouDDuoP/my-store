@@ -32,4 +32,18 @@ router.post('/recovery',
   }
 );
 
+router.post('/change-password',
+// todo: hacer validacion del token y de la comtraseña
+  async (req, res, next) => {
+    try {
+      const { token, newPassword } = req.body;
+      const response = await service.changePassword(token, newPassword);
+      res.json(response);
+    } catch (error) {
+      next(error);
+    }
+
+  }
+);
+
 module.exports = router;
