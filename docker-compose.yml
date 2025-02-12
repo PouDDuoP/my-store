@@ -1,0 +1,99 @@
+version: "3.9"
+services:
+  # Para Produccion
+  # app:
+  #   container_name: app
+  #   build:
+  #     context: .
+  #     target: production
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "3000:3000"
+  #   environment:
+  #     - PG_USER=root
+  #     - PG_PASSWORD=123456
+  #     - PG_DB=my_store
+  #     - PG_PORT=5432
+  #     - PG_HOST=postgres
+  #   depends_on:
+  #     - postgres
+
+  # Para desarrolllo
+  app-dev:
+    container_name: app-dev
+    restart: always
+    # restart: unless-stopped
+    build:
+      context: .
+      target: development
+      dockerfile: Dockerfile
+      args:
+        - PORT=${PORT}
+    # command: npm run start:dev
+    ports:
+      - "${PORT}:${PORT}"
+      - "9229:9229"
+    env_file:
+      - .env
+    depends_on:
+      - $DB_NAME_VOLUME
+    environment:
+      - DB_HOST=$DB_HOST
+      - DB_USER=$DB_USER
+      - DB_PASSWORD=$DB_PASSWORD
+      - DB_NAME=$DB_NAME
+      - DB_PORT=$DB_PORT
+    volumes:
+      - .:/usr/src/app
+      # - node_modules:/usr/src/app/node_modules
+      - ./node_modules:/usr/src/app/node_modules
+
+  # Database postgres
+  postgres:
+    image: postgres:16
+    environment:
+      - POSTGRES_DB=$DB_NAME
+      - POSTGRES_USER=$DB_USER
+      - POSTGRES_PASSWORD=$DB_PASSWORD
+    ports:
+      - 5432:$DB_PORT
+    volumes:
+      # - postgres-data:/var/lib/postgresql/data
+      - ./postgres_data:/var/lib/postgresql/data
+
+  # pgadmin web
+  postgres-admin:
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@gmail.com
+      - PGADMIN_DEFAULT_PASSWORD=root
+    ports:
+      - 5050:80
+
+  # # Database mysql
+  # mysql:
+  #   image: mysql:8
+  #   environment:
+  #     - MYSQL_DATABASE=$DB_NAME
+  #     - MYSQL_USER=$DB_USER
+  #     - MYSQL_ROOT_PASSWORD=$DB_PASSWORD
+  #     - MYSQL_PORT=$DB_PORT
+  #   ports:
+  #     - 3306:$DB_PORT
+  #   volumes:
+  #     # - mysql-data:/var/lib/mysql
+  #     - ./mysql_data:/var/lib/mysql
+
+  # # phpmyadmin web
+  # phpmyadmin:
+  #   image: phpmyadmin/phpmyadmin
+  #   environment:
+  #     - MYSQL_ROOT_PASSWORD=123456
+  #     - PMA_HOST=mysql
+  #   ports:
+  #     - 8080:80
+
+# volumes:
+#   mysql-data:
+#   postgres-data:
+#   node_modules:
