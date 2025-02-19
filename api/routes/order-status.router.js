@@ -2,7 +2,7 @@
   * @swagger
   * components:
   *   schemas:
-  *     Status:
+  *     OrderStatus:
   *       type: object
   *       required:
   *         - name
@@ -13,6 +13,9 @@
   *         name:
   *           type: string
   *           description: The name of your status
+  *        description:
+  *          type: string
+  *          description: The description of the status
   *         isActive:
   *           type: boolean
   *           description: The indicator of whether the status is active
@@ -23,6 +26,7 @@
   *       example:
   *         id: 1
   *         name: Name of status
+  *         description: Description of status
   *         isActive: true
   *         createdAt: 2024-03-10T04:05:06.157Z
 */
@@ -30,12 +34,12 @@
 /**
   * @swagger
   * tags:
-  *   name: Status
+  *   name: OrderStatus
   *   description: The status managing API
-  * /status:
+  * /order-status:
   *   get:
   *     summary: Lists all the status
-  *     tags: [Status]
+  *     tags: [OrderStatus]
   *     responses:
   *       200:
   *         description: The list of the status
@@ -44,29 +48,29 @@
   *             schema:
   *               type: array
   *               items:
-  *                 $ref: '#/components/schemas/Status'
+  *                 $ref: '#/components/schemas/OrderStatus'
   *   post:
   *     summary: Create a new status
-  *     tags: [Status]
+  *     tags: [OrderStatus]
   *     requestBody:
   *       required: true
   *       content:
   *         application/json:
   *           schema:
-  *             $ref: '#/components/schemas/Status'
+  *             $ref: '#/components/schemas/OrderStatus'
   *     responses:
   *       200:
   *         description: The created status.
   *         content:
   *           application/json:
   *             schema:
-  *               $ref: '#/components/schemas/Status'
+  *               $ref: '#/components/schemas/OrderStatus'
   *       500:
   *         description: Some server error
-  * /status/{id}:
+  * /order-status/{id}:
   *   get:
   *     summary: Get the status by id
-  *     tags: [Status]
+  *     tags: [OrderStatus]
   *     parameters:
   *       - in: path
   *         name: id
@@ -80,12 +84,12 @@
   *         content:
   *           application/json:
   *             schema:
-  *               $ref: '#/components/schemas/Status'
+  *               $ref: '#/components/schemas/OrderStatus'
   *       404:
   *         description: The status was not found
   *   put:
   *     summary: Update the status by the id
-  *     tags: [Status]
+  *     tags: [OrderStatus]
   *     parameters:
   *       - in: path
   *         name: id
@@ -98,21 +102,21 @@
   *       content:
   *         application/json:
   *           schema:
-  *             $ref: '#/components/schemas/Status'
+  *             $ref: '#/components/schemas/OrderStatus'
   *     responses:
   *       200:
   *         description: The status was updated
   *         content:
   *           application/json:
   *             schema:
-  *               $ref: '#/components/schemas/Status'
+  *               $ref: '#/components/schemas/OrderStatus'
   *       404:
   *         description: The status was not found
   *       500:
   *         description: Some error happened
   *   delete:
   *     summary: Remove the status by id
-  *     tags: [Status]
+  *     tags: [OrderStatus]
   *     parameters:
   *       - in: path
   *         name: id
@@ -131,13 +135,13 @@
 const express = require("express");
 const passport = require("passport");
 
-const StatusService = require("../services/status.service");
+const OrderStatusService = require("../services/order-status.service");
 const validatorHandler = require("../middleware/validator.handler");
 const { checkProfile } = require("../middleware/auth.handler");
-const { createStatusSchema, updateStatusSchema, getStatusSchema } = require('../schemas/status.schema');
+const { createStatusSchema, updateStatusSchema, getStatusSchema } = require('../schemas/order-status.schema');
 
 const router = express.Router();
-const service = new StatusService();
+const service = new OrderStatusService();
 
 router.get('/',
   passport.authenticate('jwt', {session: false}),

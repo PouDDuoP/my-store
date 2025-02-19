@@ -4,7 +4,7 @@ const { USER_TABLE } = require('./../models/user.model');
 const { CATEGORY_TABLE } = require('./../models/category.model');
 const { PRODUCT_TABLE } = require('./../models/product.model');
 const { TIER_TABLE } = require('./../models/tier.model');
-const { STATUS_TABLE } = require('../models/status.model');
+const { ORDER_STATUS_TABLE } = require('../models/order-status.model');
 const { ORDER_TABLE } = require('../models/order.model');
 const { ORDER_PRODUCT_TABLE } = require('../models/order-product.model');
 const { DataTypes } = require('sequelize');
@@ -182,7 +182,7 @@ module.exports = {
         onDelete: 'SET NULL'
       }
     });
-    await queryInterface.createTable(STATUS_TABLE, {
+    await queryInterface.createTable(ORDER_STATUS_TABLE, {
       id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -242,7 +242,7 @@ module.exports = {
         defaultValue: 2,
         allowNull: false,
         references: {
-          model: STATUS_TABLE,
+          model: ORDER_STATUS_TABLE,
           key: 'id'
         },
         onUpdate: 'CASCADE',
@@ -302,7 +302,7 @@ module.exports = {
     await queryInterface.dropTable(CATEGORY_TABLE);
     await queryInterface.dropTable(PRODUCT_TABLE);
     await queryInterface.dropTable(TIER_TABLE);
-    await queryInterface.dropTable(STATUS_TABLE);
+    await queryInterface.dropTable(ORDER_STATUS_TABLE);
     await queryInterface.dropTable(ORDER_TABLE);
     await queryInterface.dropTable(ORDER_PRODUCT_TABLE);
   }

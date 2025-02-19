@@ -6,17 +6,17 @@ const name = Joi.string().min(3).max(15);
 const isActive = Joi.boolean().default(true);
 
 
-const createStatusSchema = Joi.object({
+const createOrderStatusSchema = Joi.object({
   name: name.required()
 });
 
-const updateStatusSchema = Joi.object({
+const updateOrderStatusSchema = Joi.object({
   name: name,
   isActive: isActive
 });
 
-const getStatusSchema = Joi.object({
+const getOrderStatusSchema = Joi.object({
   id: id.required()
 });
 
-module.exports = { createStatusSchema, updateStatusSchema, getStatusSchema }
+module.exports = { createOrderStatusSchema, updateOrderStatusSchema, getOrderStatusSchema }

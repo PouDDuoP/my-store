@@ -2,26 +2,26 @@ const boom = require("@hapi/boom");
 
 const { models } = require('../libs/sequelize');
 
-class StatusService {
+class OrderStatusService {
 
   constructor() {
     this.limit = 10;
     this.offset = 100;
-    this.Status = [];
+    this.status = [];
   }
 
   async create(data) {
-    const newStatus = await models.Status.create(data);
+    const newStatus = await models.OrderStatus.create(data);
     return newStatus;
   }
 
   async find() {
-    const response = await models.Status.findAll();
+    const response = await models.OrderStatus.findAll();
     return response;
   }
 
   async findOne(id) {
-    const status = await models.Status.findByPk(id);
+    const status = await models.OrderStatus.findByPk(id);
     if (!status) {
       throw boom.notFound('status not found');
     }
@@ -42,4 +42,4 @@ class StatusService {
 
 }
 
-module.exports = StatusService;
+module.exports = OrderStatusService;

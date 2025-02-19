@@ -1,6 +1,6 @@
 const { Model, DataTypes, Sequelize } = require('sequelize');
 const { TIER_TABLE } = require('./tier.model');
-const { STATUS_TABLE } = require('./status.model');
+const { ORDER_STATUS_TABLE } = require('./order-status.model');
 
 const ORDER_TABLE = 'orders';
 
@@ -40,7 +40,7 @@ const OrderSchema = {
     defaultValue: 2,
     allowNull: false,
     references: {
-      model: STATUS_TABLE,
+      model: ORDER_STATUS_TABLE,
       key: 'id'
     },
     onUpdate: 'CASCADE',
@@ -62,7 +62,7 @@ const OrderSchema = {
 class Order extends Model {
   static associate(models) {
     this.belongsTo(models.Tier, {as: 'tier'});
-    this.belongsTo(models.Status, {as: 'status'});
+    this.belongsTo(models.OrderStatus, {as: 'order_status'});
     this.belongsToMany(models.Product, {
       as: 'products',
       through: models.OrderProduct,

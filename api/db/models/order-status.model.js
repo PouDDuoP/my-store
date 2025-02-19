@@ -1,8 +1,8 @@
 const { Model, DataTypes, Sequelize } = require('sequelize');
 
-const STATUS_TABLE = 'status';
+const ORDER_STATUS_TABLE = 'order_status';
 
-const StatusSchema = {
+const OrderStatusSchema = {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
@@ -12,6 +12,9 @@ const StatusSchema = {
   name: {
     type: DataTypes.STRING,
     allowNull: false
+  },
+  description: {
+    type: DataTypes.STRING
   },
   createdAt: {
     type: DataTypes.DATE,
@@ -27,18 +30,18 @@ const StatusSchema = {
   }
 }
 
-class Status extends Model {
+class OrderStatus extends Model {
   static associate() {
   }
 
   static config(sequelize) {
     return {
       sequelize,
-      tableName: STATUS_TABLE,
-      modelName: 'Status',
+      tableName: ORDER_STATUS_TABLE,
+      modelName: 'OrderStatus',
       timestamps: false
     }
   }
 }
 
-module.exports = { STATUS_TABLE, StatusSchema, Status }
+module.exports = { ORDER_STATUS_TABLE, OrderStatusSchema, OrderStatus }
