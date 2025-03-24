@@ -150,7 +150,7 @@
 const express = require("express");
 const passport = require("passport");
 
-const ProductsService = require("../services/product.services");
+const ProductsService = require("../services/product.service");
 const validatorHandler = require("../middleware/validator.handler");
 const { checkAdminProfile, checkProfile } = require("../middleware/auth.handler");
 const { createProductSchema, updateProductSchema, getProductSchema, queryProductSchema } = require("../schemas/product.schema");

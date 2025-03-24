@@ -1,7 +1,7 @@
 const express = require("express");
 const passport = require("passport");
 
-const MultimediaService = require("../services/multimedia.services");
+const MultimediaService = require("../services/multimedia.service");
 const validatorHandler = require("../middleware/validator.handler");
 const { checkAdminProfile, checkProfile } = require("../middleware/auth.handler");
 const { createMultimediaSchema, updateMultimediaSchema, getMultimediaSchema } = require("../schemas/multimedia.schema");
