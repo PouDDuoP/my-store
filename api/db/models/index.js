@@ -5,6 +5,7 @@ const { Tier, TierSchema } = require('./tier.model');
 const { Order, OrderSchema } = require('./order.model');
 const { Status, StatusSchema } = require('./status.model');
 const { OrderProduct, OrderProductSchema } = require('./order-product.model');
+const { Multimedia, MultimediaSchema } = require('./multimedia.model');
 
 function setupModels(sequelize) {
   // Models
@@ -15,6 +16,7 @@ function setupModels(sequelize) {
   Order.init(OrderSchema, Order.config(sequelize));
   Status.init(StatusSchema, Status.config(sequelize));
   OrderProduct.init(OrderProductSchema, OrderProduct.config(sequelize));
+  Multimedia.init(MultimediaSchema, Multimedia.config(sequelize));
 
   // Relationship
   User.associate(sequelize.models);
@@ -23,6 +25,7 @@ function setupModels(sequelize) {
   Product.associate(sequelize.models);
   Order.associate(sequelize.models);
   Status.associate(sequelize.models);
+  Multimedia.associate(sequelize.models);
 }
 
 module.exports = setupModels;
