@@ -53,6 +53,10 @@ const ProductSchema = {
 class Product extends Model {
   static associate(models) {
     this.belongsTo(models.Category, {as: 'category'});
+    this.hasMany(models.Multimedia, {
+      as: 'multimedia',
+      foreignKey: 'productId'
+    });
   }
 
   static config(sequelize) {
