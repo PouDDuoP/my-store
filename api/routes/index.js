@@ -8,6 +8,7 @@ const statusRouter = require('./status.router');
 const authRouter = require('./auth.router');
 const profileRouter = require('./profile.router');
 const multimediaRouter = require('./multimedia.router');
+const commissionRouter = require('./commission.router');
 
 function routerApi(app) {
   const router = express.Router();
@@ -21,6 +22,7 @@ function routerApi(app) {
   router.use('/auth', authRouter);
   router.use('/profile', profileRouter);
   router.use('/multimedia', multimediaRouter);
+  router.use('/commissions', commissionRouter);
 
 }
 
