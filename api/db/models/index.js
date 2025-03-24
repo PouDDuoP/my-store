@@ -6,6 +6,7 @@ const { Order, OrderSchema } = require('./order.model');
 const { Status, StatusSchema } = require('./status.model');
 const { OrderProduct, OrderProductSchema } = require('./order-product.model');
 const { Multimedia, MultimediaSchema } = require('./multimedia.model');
+const { Commission, CommissionSchema } = require('./commission.model');
 
 function setupModels(sequelize) {
   // Models
@@ -17,6 +18,7 @@ function setupModels(sequelize) {
   Status.init(StatusSchema, Status.config(sequelize));
   OrderProduct.init(OrderProductSchema, OrderProduct.config(sequelize));
   Multimedia.init(MultimediaSchema, Multimedia.config(sequelize));
+  Commission.init(CommissionSchema, Commission.config(sequelize));
 
   // Relationship
   User.associate(sequelize.models);
