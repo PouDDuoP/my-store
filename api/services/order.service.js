@@ -20,6 +20,11 @@ class OrderService {
     return newAddProduct;
   }
 
+  async addCommission(data) {
+    const newAddCommission = await models.OrderProductCommission.create(data);
+    return newAddCommission;
+  }
+
   async find() {
     const response = await models.Order.findAll({
       include: [
@@ -28,7 +33,16 @@ class OrderService {
           include: ['user']
         },
         'status',
-        'products'
+        'products',
+        {
+          association: 'orderProducts',
+          include: [
+            {
+              association: 'orderProductCommissions',
+              include: ['commission']
+            }
+          ]
+        }
       ]
     });
     return response;
@@ -45,7 +59,16 @@ class OrderService {
           include: ['user']
         },
         'status',
-        'products'
+        'products',
+        {
+          association: 'orderProducts',
+          include: [
+            {
+              association: 'orderProductCommissions',
+              include: ['commission']
+            }
+          ]
+        }
       ]
     });
     return response;
@@ -59,7 +82,16 @@ class OrderService {
           include: ['user']
         },
         'status',
-        'products'
+        'products',
+        {
+          association: 'orderProducts',
+          include: [
+            {
+              association: 'orderProductCommissions',
+              include: ['commission']
+            }
+          ]
+        }
       ]
     });
     if (!order) {

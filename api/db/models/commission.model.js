@@ -1,18 +1,19 @@
 const { Model, DataTypes, Sequelize } = require('sequelize');
-const { ORDER_TABLE } = require('./order.model');
+const { USER_TABLE } = require('./user.model');
 const { PRODUCT_TABLE } = require('./product.model');
 
-const ORDER_PRODUCT_TABLE = 'orders_products';
+const COMMISSION_TABLE = 'commissions';
 
-const OrderProductSchema = {
+const CommissionSchema = {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
     primaryKey: true,
     allowNull: false
   },
-  amount: {
-    type: DataTypes.INTEGER,
+  percentage: {
+    type: DataTypes.FLOAT,
+    defaultValue: 0,
     allowNull: false
   },
   createdAt: {
@@ -27,12 +28,12 @@ const OrderProductSchema = {
     defaultValue: false,
     allowNull: false
   },
-  orderId: {
+  userId: {
     type: DataTypes.INTEGER,
-    field: 'order_id',
+    field: 'user_id',
     allowNull: false,
     references: {
-      model: ORDER_TABLE,
+      model: USER_TABLE,
       key: 'id'
     },
     onUpdate: 'CASCADE',
@@ -51,28 +52,24 @@ const OrderProductSchema = {
   }
 }
 
-class OrderProduct extends Model {
+class Commission extends Model {
   static associate(models) {
-    this.belongsTo(models.Order, { as: 'order' });
-    this.belongsTo(models.Product, { as: 'product' });
+    this.belongsTo(models.User, {as: 'user'});
+    this.belongsTo(models.Product, {as: 'product'});
     this.hasMany(models.OrderProductCommission, {
       as: 'orderProductCommissions',
-      foreignKey: 'orderProductId'
+      foreignKey: 'commissionId'
     });
-    // this.hasMany(models.OrderProductCommission, {
-    //   as: 'orderProductCommissions',
-    //   foreignKey: 'orderProductId'
-    // });
   }
 
   static config(sequelize) {
     return {
       sequelize,
-      tableName: ORDER_PRODUCT_TABLE,
-      modelName: 'OrderProduct',
+      tableName: COMMISSION_TABLE,
+      modelName: 'Commission',
       timestamps: false
     }
   }
 }
 
-module.exports = { ORDER_PRODUCT_TABLE, OrderProductSchema, OrderProduct }
+module.exports = { COMMISSION_TABLE, CommissionSchema, Commission }

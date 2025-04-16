@@ -8,6 +8,9 @@ const statusId = Joi.number().integer();
 const orderId = Joi.number().integer();
 const productId = Joi.number().integer();
 const amount = Joi.number().integer().min(1);
+const commissionId = Joi.number().integer();
+const orderProductId = Joi.number().integer();
+const commissionValue = Joi.number().integer().min(0);
 
 const createOrderSchema = Joi.object({
   isActive: isActive,
@@ -32,4 +35,11 @@ const addProductSchema = Joi.object({
   isActive: isActive
 });
 
-module.exports = { createOrderSchema, updateOrderSchema, getOrderSchema, addProductSchema }
+const addCommissionSchema = Joi.object({
+  commissionId: commissionId.required(),
+  orderProductId: orderProductId.required(),
+  commissionValue: commissionValue.required(),
+  isActive: isActive
+});
+
+module.exports = { createOrderSchema, updateOrderSchema, getOrderSchema, addProductSchema, addCommissionSchema }

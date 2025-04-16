@@ -69,6 +69,10 @@ class Order extends Model {
       foreignKey: 'orderId',
       otherKey: 'productId'
     });
+    this.hasMany(models.OrderProduct, {
+      as: 'orderProducts',
+      foreignKey: 'orderId'
+    });
   }
 
   static config(sequelize) {

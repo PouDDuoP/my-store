@@ -5,6 +5,9 @@ const { Tier, TierSchema } = require('./tier.model');
 const { Order, OrderSchema } = require('./order.model');
 const { Status, StatusSchema } = require('./status.model');
 const { OrderProduct, OrderProductSchema } = require('./order-product.model');
+const { Multimedia, MultimediaSchema } = require('./multimedia.model');
+const { Commission, CommissionSchema } = require('./commission.model');
+const { OrderProductCommission, OrderProductCommissionSchema } = require('./order-product-commission.model');
 
 function setupModels(sequelize) {
   // Models
@@ -15,6 +18,9 @@ function setupModels(sequelize) {
   Order.init(OrderSchema, Order.config(sequelize));
   Status.init(StatusSchema, Status.config(sequelize));
   OrderProduct.init(OrderProductSchema, OrderProduct.config(sequelize));
+  Multimedia.init(MultimediaSchema, Multimedia.config(sequelize));
+  Commission.init(CommissionSchema, Commission.config(sequelize));
+  OrderProductCommission.init(OrderProductCommissionSchema, OrderProductCommission.config(sequelize));
 
   // Relationship
   User.associate(sequelize.models);
@@ -23,6 +29,10 @@ function setupModels(sequelize) {
   Product.associate(sequelize.models);
   Order.associate(sequelize.models);
   Status.associate(sequelize.models);
+  OrderProduct.associate(sequelize.models);
+  Multimedia.associate(sequelize.models);
+  Commission.associate(sequelize.models);
+  OrderProductCommission.associate(sequelize.models);
 }
 
 module.exports = setupModels;

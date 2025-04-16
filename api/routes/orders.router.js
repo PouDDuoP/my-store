@@ -139,7 +139,7 @@ const passport = require("passport");
 const OrderService = require("../services/order.service");
 const validatorHandler = require("../middleware/validator.handler");
 const { checkProfile } = require("../middleware/auth.handler");
-const { createOrderSchema, updateOrderSchema, getOrderSchema, addProductSchema } = require('../schemas/order.schema');
+const { createOrderSchema, updateOrderSchema, getOrderSchema, addProductSchema, addCommissionSchema } = require('../schemas/order.schema');
 
 const router = express.Router();
 const service = new OrderService();
@@ -228,6 +228,21 @@ router.post('/add-products',
       const body = req.body;
       const newAddProduct= await service.addProduct(body);
       res.status(201).json(newAddProduct);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+router.post('/add-commissions',
+  passport.authenticate('jwt', {session: false}),
+  checkProfile('admin', 'tier', 'customer'),
+  validatorHandler(addCommissionSchema, 'body'),
+  async (req, res, next) => {
+    try {
+      const body = req.body;
+      const newAddCommission= await service.addCommission(body);
+      res.status(201).json(newAddCommission);
     } catch (error) {
       next(error);
     }
