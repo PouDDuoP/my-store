@@ -52,7 +52,17 @@ const OrderProductSchema = {
 }
 
 class OrderProduct extends Model {
-  static associate() {
+  static associate(models) {
+    this.belongsTo(models.Order, { as: 'order' });
+    this.belongsTo(models.Product, { as: 'product' });
+    this.hasMany(models.OrderProductCommission, {
+      as: 'orderProductCommissions',
+      foreignKey: 'orderProductId'
+    });
+    // this.hasMany(models.OrderProductCommission, {
+    //   as: 'orderProductCommissions',
+    //   foreignKey: 'orderProductId'
+    // });
   }
 
   static config(sequelize) {
