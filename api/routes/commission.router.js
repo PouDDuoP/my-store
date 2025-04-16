@@ -39,7 +39,7 @@ router.get('/:id',
 
 router.post('/',
   passport.authenticate('jwt', { session: false }),
-  checkAdminProfile,
+  checkProfile('admin', 'tier'),
   validatorHandler(createCommissionSchema, 'body'),
   async (req, res, next) => {
     try {
@@ -54,7 +54,7 @@ router.post('/',
 
 router.patch('/:id',
   passport.authenticate('jwt', { session: false }),
-  checkAdminProfile,
+  checkProfile('admin', 'tier'),
   validatorHandler(updateCommissionSchema, 'body'),
   async (req, res, next) => {
     try {
