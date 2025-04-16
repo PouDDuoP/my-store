@@ -56,6 +56,10 @@ class Commission extends Model {
   static associate(models) {
     this.belongsTo(models.User, {as: 'user'});
     this.belongsTo(models.Product, {as: 'product'});
+    this.hasMany(models.OrderProductCommission, {
+      as: 'orderProductCommissions',
+      foreignKey: 'commissionId'
+    });
   }
 
   static config(sequelize) {
