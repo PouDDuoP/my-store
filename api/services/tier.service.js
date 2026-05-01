@@ -5,26 +5,31 @@ const { models } = require('../libs/sequelize');
 
 class TierService {
 
-  constructor() {
-    this.limit = 10;
-    this.offset = 100;
-    this.tiers = [];
-  }
+  constructor() {}
 
   async create(data) {
-    const hash = await bcrypt.hash(data.user.password, 10);
-    const newData = {
-      ...data,
-      user: {
+    const t = await models.sequelize.transaction();
+    try {
+      const hash = await bcrypt.hash(data.user.password, 10);
+      const user = await models.User.create({
         ...data.user,
         password: hash
-      }
+      }, { transaction: t });
+
+      const tier = await models.Tier.create({
+        ...data,
+        userId: user.id,
+        user: undefined
+      }, { transaction: t });
+
+      await t.commit();
+      const result = await models.Tier.findByPk(tier.id, { include: ['user'] });
+      delete result.dataValues.user.dataValues.password;
+      return result;
+    } catch (error) {
+      await t.rollback();
+      throw error;
     }
-    const newTier = await models.Tier.create(newData, {
-      include: ['user']
-    });
-    delete newTier.dataValues.user.dataValues.password;
-    return newTier;
   }
 
   async find() {
@@ -37,7 +42,7 @@ class TierService {
   async findOne(id) {
     const tier = await models.Tier.findByPk(id);
     if (!tier) {
-      throw boom.notFound('product not found');
+      throw boom.notFound('tier not found');
     }
     return tier;
   }
@@ -50,7 +55,7 @@ class TierService {
 
   async delete(id) {
     const tier = await this.findOne(id);
-    await tier.destroy();
+    await tier.update({ isActive: false });
     return { id };
   }
 

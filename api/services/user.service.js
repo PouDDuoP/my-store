@@ -7,11 +7,7 @@ const { models } = require('../libs/sequelize');
 
 class UserService {
 
-  constructor() {
-    this.limit = 10;
-    this.offset = 100;
-    this.users = [];
-  }
+  constructor() {}
 
   async create(data) {
     const hash = await bcrypt.hash(data.password, 10);
@@ -67,7 +63,7 @@ class UserService {
 
   async delete(id) {
     const user = await this.findOne(id);
-    await user.destroy();
+    await user.update({ isActive: false });
     return { id };
   }
 

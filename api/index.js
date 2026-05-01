@@ -12,6 +12,10 @@ const app = express();
 
 const port = process.env.PORT || 3000;
 
+// Validate required environment variables
+const { config, validateConfig } = require('./config/config');
+validateConfig();
+
 app.use(express.json());
 
 const whitelist = [ 'http://localhost:8080', 'http://localhost:8081' ]
@@ -20,7 +24,7 @@ const options = {
     if ( whitelist.includes(origin) || !origin) {
       callback(null, true);
     } else {
-      callback(new Error('no permitido'));
+      callback(boom.unauthorized());
     }
   }
 }

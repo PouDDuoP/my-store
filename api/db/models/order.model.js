@@ -46,6 +46,9 @@ const OrderSchema = {
     onUpdate: 'CASCADE',
     onDelete: 'SET NULL'
   },
+  // Virtual field that calculates order total from included products
+  // IMPORTANT: This only works when 'products' association is loaded via include
+  // Usage: Order.findByPk(id, { include: ['products'] })
   total: {
     type: DataTypes.VIRTUAL,
     get() {

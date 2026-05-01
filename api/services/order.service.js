@@ -4,25 +4,60 @@ const { models } = require('../libs/sequelize');
 
 class OrderService {
 
-  constructor() {
-    this.limit = 10;
-    this.offset = 100;
-    this.Orders = [];
-  }
+  constructor() {}
 
   async create(data) {
-    const newOrder = await models.Order.create(data);
-    return newOrder;
+    const t = await models.sequelize.transaction();
+    try {
+      const order = await models.Order.create(data, { transaction: t });
+      await t.commit();
+      return await models.Order.findByPk(order.id, {
+        include: [
+          {
+            association: 'tier',
+            include: ['user']
+          },
+          'status',
+          'products',
+          {
+            association: 'orderProducts',
+            include: [
+              {
+                association: 'orderProductCommissions',
+                include: ['commission']
+              }
+            ]
+          }
+        ]
+      });
+    } catch (error) {
+      await t.rollback();
+      throw error;
+    }
   }
 
   async addProduct(data) {
-    const newAddProduct = await models.OrderProduct.create(data);
-    return newAddProduct;
+    const t = await models.sequelize.transaction();
+    try {
+      const orderProduct = await models.OrderProduct.create(data, { transaction: t });
+      await t.commit();
+      return orderProduct;
+    } catch (error) {
+      await t.rollback();
+      throw error;
+    }
   }
 
   async addCommission(data) {
-    const newAddCommission = await models.OrderProductCommission.create(data);
-    return newAddCommission;
+    const t = await models.sequelize.transaction();
+    try {
+      const commission = await models.OrderProductCommission.create(data, { transaction: t });
+      await t.commit();
+      return commission;
+    } catch (error) {
+      await t.rollback();
+      throw error;
+    }
   }
 
   async find() {
@@ -108,7 +143,7 @@ class OrderService {
 
   async delete(id) {
     const order = await this.findOne(id);
-    await order.destroy();
+    await order.update({ isActive: false });
     return { id };
   }
 

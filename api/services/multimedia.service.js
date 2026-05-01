@@ -4,21 +4,21 @@ const { models } = require('../libs/sequelize');
 
 class MultimediaService {
 
-  constructor() {
-    this.limit = 10;
-    this.offset = 100;
-    this.multimedia = [];
-  }
+  constructor() {}
 
   async create(data) {
     const newMultimedia = await models.Multimedia.create(data)
     return newMultimedia;
   }
 
-  async find() {
-    const response = await models.Multimedia.findAll({
+  async find(query = {}) {
+    const options = {
       include: ['product']
-    });
+    };
+    if (query.limit) options.limit = query.limit;
+    if (query.offset) options.offset = query.offset;
+
+    const response = await models.Multimedia.findAll(options);
     return response;
   }
 
@@ -40,7 +40,7 @@ class MultimediaService {
 
   async delete(id) {
     const multimedia = await this.findOne(id);
-    await multimedia.destroy();
+    await multimedia.update({ isActive: false });
     return { id };
   }
 

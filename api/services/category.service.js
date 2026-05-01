@@ -4,11 +4,7 @@ const { models } = require('../libs/sequelize');
 
 class CategoryService {
 
-  constructor() {
-    this.limit = 10;
-    this.offset = 100;
-    this.categories = [];
-  }
+  constructor() {}
 
   async create(data) {
     const newCategory= await models.Category.create(data)
@@ -40,7 +36,7 @@ class CategoryService {
 
   async delete(id) {
     const category = await this.findOne(id);
-    await category.destroy();
+    await category.update({ isActive: false });
     return { id };
   }
 

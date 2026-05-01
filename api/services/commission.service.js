@@ -4,26 +4,26 @@ const { models } = require('../libs/sequelize');
 
 class CommissionService {
 
-  constructor() {
-    this.limit = 10;
-    this.offset = 100;
-    this.commissions = [];
-  }
+  constructor() {}
 
-  create(data) {
-    const newCommission = models.Commission.create(data);
+  async create(data) {
+    const newCommission = await models.Commission.create(data);
     return newCommission;
   }
 
-  find() {
-    const response = models.Commission.findAll({
+  async find(query = {}) {
+    const options = {
       include: ['user', 'product']
-    });
+    };
+    if (query.limit) options.limit = query.limit;
+    if (query.offset) options.offset = query.offset;
+
+    const response = await models.Commission.findAll(options);
     return response;
   }
 
-  findOne(id) {
-    const commission = models.Commission.findByPk(id, {
+  async findOne(id) {
+    const commission = await models.Commission.findByPk(id, {
       include: ['user', 'product']
     });
     if (!commission) {
@@ -40,7 +40,7 @@ class CommissionService {
 
   async delete(id) {
     const commission = await this.findOne(id);
-    await commission.destroy();
+    await commission.update({ isActive: false });
     return { id };
   }
 
