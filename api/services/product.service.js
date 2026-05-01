@@ -5,11 +5,7 @@ const { models } = require('../libs/sequelize');
 
 class ProductService {
 
-  constructor() {
-    this.limit = 10;
-    this.offset = 100;
-    this.products = [];
-  }
+  constructor() {}
 
   async create(data) {
     const newProduct = await models.Product.create(data)
@@ -64,7 +60,7 @@ class ProductService {
 
   async delete(id) {
     const product = await this.findOne(id);
-    await product.destroy();
+    await product.update({ isActive: false });
     return { id };
   }
 

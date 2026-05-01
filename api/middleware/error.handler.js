@@ -9,10 +9,14 @@ function logErrors(err, req, res, next) {
 
 function errorHandler(err, req, res, next) {
   console.log('errorHandler');
-  res.status(500).json({
+  const response = {
     message: err.message,
-    stack: err.stack,
-  })
+  };
+  // Only include stack trace in development
+  if (process.env.NODE_ENV === 'development') {
+    response.stack = err.stack;
+  }
+  res.status(500).json(response);
 }
 
 function boomErrorHandler(err, req, res, next) {

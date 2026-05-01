@@ -13,7 +13,7 @@ function checkApiKey(req, res, next) {
 function checkAdminProfile(req, res, next) {
   console.log("checkAdminProfile:", req.user);
   const user = req.user;
-  if (user.profile === 'admin') {
+  if (user && user.profile === 'admin') {
     next();
   } else {
     next(boom.unauthorized());

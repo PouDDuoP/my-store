@@ -43,7 +43,7 @@ class AuthService {
     }
     const payload = { sub: user.id };
     const token = jwt.sign(payload, config.jwtSecret, {expiresIn: '15min'});
-    const link = `http://my-store.frontend.com/recovery?token=${token}`;
+    const link = `${config.frontendUrl || 'http://localhost:8080'}/recovery?token=${token}`;
     await service.update(user.id, { recoveryToken: token });
     const mail = {
       from: config.emailUser, // sender address

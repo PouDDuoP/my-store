@@ -4,19 +4,19 @@ const { models } = require('../libs/sequelize');
 
 class StatusService {
 
-  constructor() {
-    this.limit = 10;
-    this.offset = 100;
-    this.Status = [];
-  }
+  constructor() {}
 
   async create(data) {
     const newStatus = await models.Status.create(data);
     return newStatus;
   }
 
-  async find() {
-    const response = await models.Status.findAll();
+  async find(query = {}) {
+    const options = {};
+    if (query.limit) options.limit = query.limit;
+    if (query.offset) options.offset = query.offset;
+
+    const response = await models.Status.findAll(options);
     return response;
   }
 
@@ -36,7 +36,7 @@ class StatusService {
 
   async delete(id) {
     const status = await this.findOne(id);
-    await status.destroy();
+    await status.update({ isActive: false });
     return { id };
   }
 
