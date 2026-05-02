@@ -219,8 +219,3 @@ $RECYCLE.BIN/
 postgres_data/
 mysql_data/
 
-# Agents & Skills agents
-*.agents/
-skills-lock.json
-
-# End of https://www.toptal.com/developers/gitignore/api/node,windows,linux,macos
