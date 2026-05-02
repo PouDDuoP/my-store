@@ -18,7 +18,7 @@ validateConfig();
 
 app.use(express.json());
 
-const whitelist = [ 'http://localhost:8080', 'http://localhost:8081' ]
+const whitelist = [ 'http://localhost:4200', 'http://localhost:4201', 'http://localhost:8080', 'http://localhost:8081' ]
 const options = {
   origin: (origin, callback) => {
     if ( whitelist.includes(origin) || !origin) {
