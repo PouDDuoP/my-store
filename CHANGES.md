@@ -676,6 +676,39 @@ expect(res.json).toHaveBeenCalledWith(
 
 ---
 
+### 4.4 Actualización del Postman Collection
+
+**Archivo**: `postman/My-store Express.postman_collection.json`
+
+**¿Qué se actualizó?**
+
+1. ✅ **Gestión automática de token JWT**:
+   - Agregadas variables de colección: `API_URL` y `token`
+   - Script de evento en "Post auth login" y "Post auth login tier"
+   - Captura automática del token tras login exitoso
+   - Todas las requests autenticadas usan `{{token}}` automáticamente
+
+2. ✅ **Datos actualizados según seeders**:
+   - Credenciales de login: `admin/password123`, `tier1/password123`
+   - Campos en snake_case: `first_name`, `last_name`, `is_active`
+   - Emails actualizados a `@mystore.com`
+   - IDs válidos para categorías (1, 2, 3), tiers, orders
+
+3. ✅ **Correcciones técnicas**:
+   - Reemplazados 22 tokens hardcoded con variable `{{token}}`
+   - URLs corregidas: `loremflickr.com` (no `loremflickr.com`)
+   - Estructura de JSON actualizada para coincidir con API
+
+**¿Por qué?**: Un archivo Postman bien configurado facilita las pruebas de la API. La gestión automática del token elimina la necesidad de copiar/pegar manualmente el JWT después del login.
+
+**Resultado**:
+- ✅ Login automático guarda token
+- ✅ No más tokens hardcodeados
+- ✅ Datos coherentes con seeders
+- ✅ Fácil de usar para cualquier desarrollador
+
+---
+
 ## 📊 Resumen Final {#resumen-final}
 
 ### Estadísticas del Proyecto
