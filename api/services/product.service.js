@@ -42,6 +42,15 @@ class ProductService {
     return products;
   }
 
+  async findByCategory(categoryId) {
+    const products = await models.Product.findAll({
+      where: { categoryId },
+      include: ['category'],
+      order: [['id', 'ASC']]
+    });
+    return products;
+  }
+
   async findOne(id) {
     const product = await models.Product.findByPk(id, {
       include: ['category']

@@ -137,6 +137,7 @@ const express = require("express");
 const passport = require("passport");
 
 const CategoriesService = require("../services/category.service");
+const ProductsService = require("../services/product.service");
 const validatorHandler = require("../middleware/validator.handler");
 const { checkAdminProfile, checkProfile } = require("../middleware/auth.handler");
 const { createCategorySchema, updateCategorySchema, getCategorySchema } = require("../schemas/category.schema");
@@ -172,6 +173,22 @@ router.get('/:id',
       }
     }
   );
+
+router.get('/:id/products',
+  passport.authenticate('jwt', {session: false}),
+  checkProfile('admin', 'tier', 'customer'),
+  validatorHandler(getCategorySchema, 'params'),
+  async (req, res, next) => {
+    try {
+      const { id } = req.params;
+      const productService = new ProductsService();
+      const products = await productService.findByCategory(id);
+      res.json(products);
+    } catch(error) {
+      next(error);
+    }
+  }
+);
 
 // router.get('/:id_category/products/:id_product', (req, res) => {
 //   const { id_category, id_product } = req.params;
