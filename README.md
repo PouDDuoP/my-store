@@ -8,18 +8,19 @@ API REST para gestión de tienda online construida con Node.js, Express y Sequel
 
 ## ✨ Características Principales
 
-- **Gestión Completa de Productos:** CRUD con categorización
+- **Gestión Completa de Productos:** CRUD con categorización y filtrado por categoría
 - **Gestión de Pedidos:** Control de estados y asignación a usuarios (tiers)
-- **Autenticación JWT:** Login, recuperación de contraseña, perfiles (admin, tier, customer)
+- **Autenticación JWT:** Login (con `username`), registro, recuperación de contraseña, perfiles (admin, tier, customer)
 - **Comisiones:** Sistema de comisiones por producto y usuario
 - **Multimedia:** Soporte para imágenes, videos y audio en productos
 - **Soft Delete:** Eliminación lógica preservando integridad de datos
 - **Transacciones:** Operaciones ACID en creación de tiers y pedidos
+- **API REST Documentada:** Swagger UI disponible en `/api/v1/docs`
 
 ## 🛠️ Tecnologías
 
 ### Backend
-- **Node.js 20.x** + **Express 4.x**
+- **Node.js 24.x** + **Express 4.x**
 - **Sequelize ORM** (PostgreSQL)
 - **JWT** para autenticación
 - **Bcrypt** para hashing de contraseñas
@@ -41,7 +42,7 @@ API REST para gestión de tienda online construida con Node.js, Express y Sequel
 ## 🚀 Instalación
 
 ### Requisitos
-- Node.js 20.x
+- Node.js 24.x
 - PostgreSQL (o Docker)
 - npm o yarn
 
@@ -95,6 +96,97 @@ npm start
 npm run start:dev
 ```
 
+---
+
+## 🐳 Ejecución con Docker
+
+El proyecto incluye configuración completa para Docker y Docker Compose, ideal para desarrollo y producción.
+
+### Requisitos
+- Docker Desktop instalado
+- Docker Compose (incluido en Docker Desktop)
+
+### Servicios Disponibles
+
+El archivo `docker-compose.yml` incluye:
+
+| Servicio | Descripción | Puerto |
+|----------|--------------|--------|
+| `app-dev` | API en modo desarrollo (con nodemon) | 3000 + 9229 (debug) |
+| `postgres` | Base de datos PostgreSQL 17 | 5432 |
+| `postgres-admin` | Interfaz web pgAdmin4 | 5050 |
+
+### Pasos para ejecutar con Docker
+
+1. **Configurar variables de entorno:**
+   Asegúrate de tener el archivo `.env` configurado (ver sección de instalación manual).
+
+2. **Ejecutar los contenedores:**
+   ```bash
+   docker-compose up app-dev postgres postgres-admin --build
+   ```
+   
+   **¿Qué hace este comando?**
+   - Construye la imagen de la aplicación usando el `Dockerfile` (target: development)
+   - Levanta PostgreSQL 17 con los datos iniciales
+   - Inicia pgAdmin4 para administrar la base de datos
+   - Ejecuta migraciones y seeders automáticamente (vía `entrypoint.sh`)
+   - La API estará disponible en `http://localhost:3000`
+
+3. **Acceder a pgAdmin4 (opcional):**
+   - URL: `http://localhost:5050`
+   - Email: `admin@admin.com`
+   - Password: `root`
+
+4. **Ver logs en tiempo real:**
+   ```bash
+   docker-compose logs -f app-dev
+   ```
+
+5. **Detener los contenedores:**
+   ```bash
+   docker-compose down
+   ```
+   
+   Para eliminar también los volúmenes (incluyendo datos de PostgreSQL):
+   ```bash
+   docker-compose down -v
+   ```
+
+### Estructura de Docker
+
+**Dockerfile:**
+- **Base**: `node:24-alpine3.22` (ligero)
+- **Desarrollo**: Incluye nodemon, nc (netcat), ejecución de migraciones y seeds
+- **Producción**: (comentado) Optimizado para producción con `dumb-init`
+
+**Entrypoint (`scripts/entrypoint.sh`):**
+1. Espera a que PostgreSQL esté listo (usando `nc`)
+2. Ejecuta migraciones (`npm run migrations:run`)
+3. Ejecuta seeders (`npm run seeds:run`)
+4. Inicia la aplicación
+
+### Comandos Útiles
+
+```bash
+# Ver contenedores corriendo
+docker-compose ps
+
+# Reconstruir sin cache
+docker-compose build --no-cache
+
+# Ejecutar comando dentro del contenedor
+docker-compose exec app-dev npm test
+
+# Ver logs de postgres
+docker-compose logs postgres
+
+# Limpiar todo (contenedores, imágenes, volúmenes)
+docker system prune -a --volumes
+```
+
+---
+
 ## 📚 Estructura del Proyecto
 
 ```
@@ -127,21 +219,44 @@ npm test
 ```
 
 **Estado actual:**
-- ✅ 144 tests pasando
-- ✅ 21 test suites
-- ✅ Cobertura: ~60% (objetivo: >80%)
+- ✅ 166 tests pasando
+- ✅ 22 test suites
+- ✅ Cobertura: 88.2% (objetivo cumplido: >80%)
+- ✅ Todos los servicios y rutas principales cubiertos
 
 ## 📖 Documentación API
 
-Disponible en: `http://localhost:3000/api/v1/docs`
+Disponible en: `http://localhost:3000/api/v1/docs` (Swagger UI)
+
+### Endpoints Principales
+
+| Método | Endpoint | Descripción | Auth Requerida |
+|--------|-----------|-------------|----------------|
+| POST | `/api/v1/auth/login` | Login (username + password) | No |
+| POST | `/api/v1/auth/register` | Registro de usuario | No |
+| POST | `/api/v1/auth/recovery` | Recuperar contraseña | No |
+| POST | `/api/v1/auth/change-password` | Cambiar contraseña | No |
+| GET | `/api/v1/profile` | Obtener perfil del usuario | Sí (JWT) |
+| GET | `/api/v1/products` | Listar productos (con filtros) | Sí (JWT) |
+| GET | `/api/v1/categories/:id/products` | Productos por categoría | Sí (JWT) |
+| GET | `/api/v1/categories` | Listar categorías | Sí (JWT) |
+| POST | `/api/v1/products` | Crear producto | Admin |
+| PUT | `/api/v1/products/:id` | Actualizar producto | Admin |
+| DELETE | `/api/v1/products/:id` | Eliminar producto (soft delete) | Admin |
+
+### Filtros Disponibles (Products)
+- `?price_min=X&price_max=Y` - Rango de precios
+- `?limit=N&offset=M` - Paginación
 
 ## 👤 Perfiles de Usuario
 
-| Perfil | Permisos |
-|--------|-----------|
-| `admin` | Acceso total (CRUD en todos los endpoints) |
-| `tier` | Puede crear órdenes, comisiones y gestionar su perfil |
-| `customer` | Solo lectura (puede ver productos, categorías, sus propias órdenes) |
+| Perfil | Credenciales de Prueba | Permisos |
+|--------|-------------------------|-----------|
+| `admin` | username: `admin`<br>password: `password123` | Acceso total (CRUD en todos los endpoints) |
+| `tier` | username: `tier1` o `tier2`<br>password: `password123` | Puede crear órdenes, comisiones y gestionar su perfil |
+| `customer` | username: `customer1`, `customer2` o `customer3`<br>password: `password123` | Solo lectura (puede ver productos, categorías, sus propias órdenes) |
+
+**Nota:** El login requiere `username` (no email). Email disponible: `admin@mystore.com`
 
 ## 🔒 Variables de Entorno Requeridas
 
@@ -170,128 +285,3 @@ npm run seeds:generate       # Genera nuevo seeder
 ## 📄 Licencia
 
 ISC
-
-## 🚀 Descripción General
-
-**My Store** es una aplicación web de comercio electrónico desarrollada con una arquitectura **Monolítica** y un enfoque **MVC (Modelo-Vista-Controlador)**. Este proyecto sirve como una sólida base para crear y gestionar tu propia tienda online, ofreciendo funcionalidades esenciales para la compra y venta de productos.
-
------
-
-## ✨ Características Principales
-
-  * **Gestión de Productos:** Añade, edita y elimina productos con facilidad.
-  * **Gestión de Pedidos:** Controla el estado de los pedidos y la información de los clientes.
-  * **Autenticación de Usuarios:** Registro e inicio de sesión seguro para clientes y administradores.
-  * **Interfaz Responsiva:** Adaptable a diferentes dispositivos (escritorio, tabletas y móviles).
-  * **Carrito de Compras:** Funcionalidad completa para que los usuarios añadan y gestionen productos antes de la compra.
-  * **Base de Datos Relacional:** Utiliza **PostgreSQL** para un almacenamiento de datos robusto y eficiente.
-
------
-
-## 🛠️ Tecnologías Utilizadas
-
-Este proyecto está construido con un stack tecnológico robusto y moderno:
-
-  * **Backend:**
-      * **Node.js:** Entorno de ejecución de JavaScript.
-      * **Express.js:** Framework web para Node.js, utilizado para construir la API y las rutas.
-      * **Sequelize ORM:** ORM para Node.js, facilita la interacción con la base de datos PostgreSQL.
-      * **Passport.js:** Middleware de autenticación flexible.
-      * **Bcrypt:** Para el hashing seguro de contraseñas.
-  * **Frontend (Vista):**
-      * **EJS (Embedded JavaScript):** Motor de plantillas para generar HTML dinámicamente en el servidor.
-      * **HTML5, CSS3, JavaScript (Vanilla):** Fundamentos del desarrollo web.
-      * **Bootstrap:** Framework CSS para un diseño responsivo y preestablecido.
-  * **Base de Datos:**
-      * **PostgreSQL:** Sistema de gestión de bases de datos relacional.
-  * **Herramientas de Desarrollo y Despliegue:**
-      * **Docker:** Para la contenerización de la aplicación y la base de datos, asegurando un entorno consistente.
-      * **Nodemon:** Para el reinicio automático del servidor durante el desarrollo.
-
------
-
-## 🚀 Instalación y Ejecución Local
-
-Sigue estos pasos para poner en marcha `My Store` en tu máquina local:
-
-### Requisitos Previos
-
-Asegúrate de tener instalado lo siguiente:
-
-  * **Node.js** (versión 14.x o superior recomendada)
-  * **npm** (viene con Node.js) o **Yarn**
-  * **Docker** y **Docker Compose**
-
-### Pasos
-
-1.  **Clona el repositorio:**
-
-    ```bash
-    git clone https://github.com/PouDDuoP/my-store.git
-    cd my-store
-    ```
-
-2.  **Configura las variables de entorno:**
-    Crea un archivo `.env` en la raíz del proyecto (al mismo nivel que `package.json`) y añade las siguientes variables. Adapta los valores según tus necesidades:
-
-    ```env
-    # Variables de la aplicación
-    PORT=3000
-    SECRET_KEY=tu_clave_secreta_para_sesiones # ¡Cámbiala por una cadena segura y larga!
-
-    # Variables de la base de datos (PostgreSQL)
-    DB_HOST=db
-    DB_USER=miusuario
-    DB_PASSWORD=micontrasena
-    DB_NAME=mitiendadb
-    DB_PORT=5432
-    ```
-
-3.  **Inicia la base de datos con Docker Compose:**
-
-    ```bash
-    docker-compose up -d --build
-    ```
-
-    Esto creará y levantará el contenedor de PostgreSQL. Espera unos segundos hasta que la base de datos esté completamente inicializada.
-
-4.  **Instala las dependencias del proyecto:**
-
-    ```bash
-    npm install
-    # o
-    yarn install
-    ```
-
-5.  **Ejecuta las migraciones de la base de datos:**
-    Necesitas ejecutar las migraciones de Sequelize para crear las tablas en tu base de datos.
-
-    ```bash
-    npx sequelize db:migrate
-    ```
-
-    Si tienes seeds (datos de prueba), también puedes ejecutarlos:
-
-    ```bash
-    npx sequelize db:seed:all
-    ```
-
-6.  **Inicia la aplicación:**
-
-    ```bash
-    npm start
-    # o para desarrollo con nodemon
-    npm run dev
-    ```
-
-    La aplicación estará disponible en `http://localhost:3000` (o el puerto que hayas configurado en tu `.env`).
-
------
-
-## 📞 Contacto
-
-Si tienes alguna pregunta o sugerencia, no dudes en contactarme:
-
-  * **GitHub:** [PouDDuoP](https://www.google.com/search?q=https://github.com/PouDDuoP)
-  * **LinkedIn:** [kevin-alvarado-gratero](https://www.linkedin.com/in/kevin-alvarado-graterol/) 
------

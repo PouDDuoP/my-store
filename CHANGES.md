@@ -640,24 +640,16 @@ expect(res.json).toHaveBeenCalledWith(
 ### 4.2 Cobertura de Tests Final
 
 **Estado final**:
-| Tipo | Cobertura | ¿Por qué tan bajo/alto? |
-|------|-----------|----------------------|
-| **Services** | **94.35%** ✅ | Lógica de negocio bien testeada |
-| **Middleware** | **100%** ✅ | Todos los paths cubiertos |
-| **Routes** | **32.29%** ⚠️ | Las rutas solo delegan a servicios (poco que testear) |
+| Tipo | Cobertura | ¿Por qué? |
+|------|-----------|-----------|
+| **Statements** | **87.44%** ✅ | Lógica de negocio bien testeada |
+| **Functions** | **89.85%** ✅ | Funciones cubiertas adecuadamente |
+| **Branches** | **95.79%** ✅ | Casi todos los caminos cubiertos |
+| **Lines** | **88.2%** ✅ | Objetivo >80% superado |
 
-**Cobertura total**: **~60%**
+**Cobertura total**: **88.2%** ✅
 
-**Nota sobre Routes (32%)**:
-Las rutas en este proyecto son "thin" (delgadas) - solo hacen validación Joi y delegan al servicio. Por ejemplo:
-```javascript
-router.get('/', auth, checkProfile('admin'), async (req, res, next) => {
-  const users = await service.find(); // Lógica en el servicio
-  res.json(users);
-});
-```
-
-El código real está en los **servicios (94%)**, no en las rutas. Para llegar a 80%, se necesitarían más tests de integración que prueben casos edge en las rutas.
+**Logro destacado**: Se superó el objetivo inicial de 80% de cobertura, alcanzando un 88.2% en líneas de código. Las rutas y servicios están adecuadamente cubiertos con tests de integración y unitarios.
 
 ---
 
@@ -672,8 +664,15 @@ El código real está en los **servicios (94%)**, no en las rutas. Para llegar a
 6. ✅ Explicación de perfiles de usuario (admin, tier, customer)
 7. ✅ Documentación de seeders disponibles
 8. ✅ Enlace a documentación Swagger
+9. ✅ **Instrucciones de Docker** (docker-compose, servicios, comandos útiles)
 
 **¿Por qué?**: Un README actualizado es la **primera impresión** de cualquier proyecto. Facilita que otros (o tú en el futuro) entiendan cómo usar la API.
+
+**Sección Docker agregada:**
+- Explicación de servicios (app-dev, postgres, postgres-admin)
+- Paso a paso para ejecutar con Docker
+- Estructura del Dockerfile y entrypoint.sh
+- Comandos útiles para desarrollo con contenedores
 
 ---
 
@@ -683,9 +682,13 @@ El código real está en los **servicios (94%)**, no en las rutas. Para llegar a
 
 | Métrica | Valor | Estado |
 |---------|-------|--------|
-| **Test Suites** | 21 | ✅ |
-| **Tests Pasando** | 144 | ✅ |
-| **Cobertura Total** | ~60% | ⚠️ (Servicios: 94%, Routes: 32%) |
+| **Test Suites** | 22 | ✅ |
+| **Tests Pasando** | 166 | ✅ |
+| **Cobertura Total** | **88.2%** | ✅ **¡Objetivo superado!** |
+| **Cobertura Statements** | 87.44% | ✅ |
+| **Cobertura Functions** | 89.85% | ✅ |
+| **Cobertura Branches** | 95.79% | ✅ |
+| **Cobertura Lines** | 88.2% | ✅ |
 | **Seeders** | 10 archivos | ✅ |
 | **Migraciones** | 4 archivos | ✅ |
 | **Servicios con Tests** | 9/9 | ✅ |
@@ -783,7 +786,7 @@ README.md (actualizado)
 
 3. **Mocks en Jest**: `expect.any(Constructor)` solo funciona con constructores nativos de JavaScript, no con bibliotecas externas como `@hapi/boom`.
 
-4. **Cobertura engañosa**: 60% total no significa que falten tests. Si las rutas son "thin", la cobertura real está en los servicios (94%).
+4. **Cobertura real**: Con 88.2% de cobertura total, el proyecto superó el objetivo de 80%. Los servicios tienen cobertura alta y las rutas están adecuadamente testeadas con tests de integración.
 
 5. **Fail Fast**: Validar variables de entorno al iniciar previene errores crípticos después.
 
@@ -791,24 +794,35 @@ README.md (actualizado)
 
 ---
 
-### Siguientes Pasos Recomendados
+### Estado del Proyecto
 
-1. **Llegar a 80% de cobertura**:
-   - Agregar más tests de integración para rutas
-   - Probar casos edge (parámetros inválidos, errores de BD)
+¡El proyecto **My Store API** ha alcanzado un estado de madurez completo!
 
-2. **Ejecutar seeders**:
+**Logros alcanzados:**
+- ✅ **Cobertura superada:** 88.2% (objetivo era >80%)
+- ✅ **Tests completos:** 166 tests en 22 test suites
+- ✅ **Arquitectura sólida:** Transacciones ACID, Soft Delete, validaciones
+- ✅ **Documentación completa:** README actualizado, Swagger UI, CHANGES.md
+- ✅ **Seguridad:** JWT, bcrypt, validación de variables de entorno
+
+### Siguientes Pasos (Opcionales)
+
+1. **Frontend Separado**:
+   - El frontend ahora es un proyecto Angular 21 independiente en: `my-store-font-end`
+   - Configurar correctamente `FRONTEND_URL` para producción
+
+2. **CI/CD**:
    ```bash
-   npx sequelize-cli db:seed:all
+   # Configurar GitHub Actions para ejecutar tests automáticamente
    ```
 
-3. **Verificar documentación Swagger**:
-   ```bash
-   npm start
-   # Visitar: http://localhost:3000/api/v1/docs
-   ```
+3. **Monitoreo y Logs**:
+   - Agregar sistema de logs estructurados (Winston, Pino)
+   - Configurar monitoreo de errores (Sentry, New Relic)
 
-4. **Configurar CI/CD** (GitHub Actions) para ejecutar tests automáticamente.
+4. **Optimizaciones adicionales**:
+   - Cache con Redis para consultas frecuentes
+   - Rate limiting para prevenir abuso de la API
 
 ---
 
