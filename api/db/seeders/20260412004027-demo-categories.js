@@ -10,22 +10,22 @@ module.exports = {
         name: 'Clothing',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
         image: 'https://loremflickr.com/640/480',
-        createdAt: new Date(),
-        isActive: true,
+        create_at: new Date(),
+        is_active: true,
       },
       {
         name: 'Electronics',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
         image: 'https://loremflickr.com/640/480',
-        createdAt: new Date(),
-        isActive: true,
+        create_at: new Date(),
+        is_active: true,
       },
       {
         name: 'Home & Garden',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
         image: 'https://loremflickr.com/640/480',
-        createdAt: new Date(),
-        isActive: true,
+        create_at: new Date(),
+        is_active: true,
       }
     ]);
   },

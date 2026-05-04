@@ -19,9 +19,9 @@ module.exports = {
           fileUrl: `https://loremflickr.com/640/480/${mediaType}?random=${productId * 10 + i}`,
           order: i + 1,
           description: `${mediaType} for product ${productId}`,
-          createdAt: new Date(),
-          isActive: true,
-          productId: productId,
+          create_at: new Date(),
+          is_active: true,
+          product_id: productId,
         });
       }
     }

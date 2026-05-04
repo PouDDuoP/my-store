@@ -24,10 +24,10 @@ module.exports = {
 
         commissions.push({
           percentage: parseFloat((Math.random() * 10).toFixed(2)), // 0-10%
-          createdAt: new Date(),
-          isActive: true,
-          userId: userId,
-          productId: productId,
+          create_at: new Date(),
+          is_active: true,
+          user_id: userId,
+          product_id: productId,
         });
       }
     }

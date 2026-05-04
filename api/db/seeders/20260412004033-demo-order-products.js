@@ -21,10 +21,10 @@ module.exports = {
 
         orderProducts.push({
           amount: Math.floor(Math.random() * 5) + 1, // 1-5
-          createdAt: new Date(),
-          isActive: true,
-          orderId: orderId,
-          productId: productId,
+          create_at: new Date(),
+          is_active: true,
+          order_id: orderId,
+          product_id: productId,
         });
       }
     }

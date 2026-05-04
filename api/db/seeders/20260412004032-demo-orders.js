@@ -14,10 +14,10 @@ module.exports = {
     // Create 10 orders
     for (let i = 1; i <= 10; i++) {
       orders.push({
-        createdAt: new Date(),
-        isActive: true,
-        tierId: tierIds[Math.floor(Math.random() * tierIds.length)],
-        statusId: statusId,
+        create_at: new Date(),
+        is_active: true,
+        tier_id: tierIds[Math.floor(Math.random() * tierIds.length)],
+        status_id: statusId,
       });
     }
 

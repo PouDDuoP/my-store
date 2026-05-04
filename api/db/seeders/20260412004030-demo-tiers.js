@@ -9,16 +9,16 @@ module.exports = {
       {
         name: 'Gold Tier',
         image: 'https://loremflickr.com/640/480/tier',
-        createdAt: new Date(),
-        isActive: true,
-        userId: 2,
+        create_at: new Date(),
+        is_active: true,
+        user_id: 2,
       },
       {
         name: 'Silver Tier',
         image: 'https://loremflickr.com/640/480/tier',
-        createdAt: new Date(),
-        isActive: true,
-        userId: 3,
+        create_at: new Date(),
+        is_active: true,
+        user_id: 3,
       }
     ]);
   },

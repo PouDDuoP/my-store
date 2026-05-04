@@ -26,10 +26,10 @@ module.exports = {
         for (const commission of productCommissions) {
           orderProductCommissions.push({
             commissionValue: parseFloat((Math.random() * 50).toFixed(2)), // 0-50 value
-            createdAt: new Date(),
-            isActive: true,
-            commissionId: commission.id,
-            orderProductId: op.id,
+            create_at: new Date(),
+            is_active: true,
+            commission_id: commission.id,
+            order_product_id: op.id,
           });
         }
       }

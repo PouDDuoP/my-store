@@ -7,28 +7,28 @@ module.exports = {
     await queryInterface.bulkInsert(STATUS_TABLE, [
       {
         name: 'pending',
-        createdAt: new Date(),
-        isActive: true,
+        create_at: new Date(),
+        is_active: true,
       },
       {
         name: 'paid',
-        createdAt: new Date(),
-        isActive: true,
+        create_at: new Date(),
+        is_active: true,
       },
       {
         name: 'shipped',
-        createdAt: new Date(),
-        isActive: true,
+        create_at: new Date(),
+        is_active: true,
       },
       {
         name: 'delivered',
-        createdAt: new Date(),
-        isActive: true,
+        create_at: new Date(),
+        is_active: true,
       },
       {
         name: 'cancelled',
-        createdAt: new Date(),
-        isActive: true,
+        create_at: new Date(),
+        is_active: true,
       }
     ]);
   },
