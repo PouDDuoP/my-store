@@ -1,0 +1,1479 @@
+{
+  "info": {
+    "_postman_id": "d9047799-b4cd-4a67-994c-07df47b8f34f",
+    "name": "My-store Express",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "13658910"
+  },
+  "item": [
+    {
+      "name": "Products",
+      "item": [
+        {
+          "name": "Get products",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsInByb2ZpbGUiOiJ0aWVyIiwiaWF0IjoxNzA0MzA0MzkzfQ.xNxL9UeQ2G8y9_U_WKU9j_-CQ3iXXi9uNV4QDBd60tk",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "url": {
+              "raw": "{{API_URL}}/api/v1/products?price_min=100&price_max=5000",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "products"
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "5",
+                  "disabled": true
+                },
+                {
+                  "key": "offset",
+                  "value": "0",
+                  "disabled": true
+                },
+                {
+                  "key": "price",
+                  "value": "1000",
+                  "type": "text",
+                  "disabled": true
+                },
+                {
+                  "key": "price_min",
+                  "value": "100"
+                },
+                {
+                  "key": "price_max",
+                  "value": "5000"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get product",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{API_URL}}/api/v1/products/1",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "products",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Post  product",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsInByb2ZpbGUiOiJhZG1pbiIsImlhdCI6MTcwMzcwMzc4NX0.BuN4CYwhhaNt-aGZlC2Z9csa7bhaV3WC73e5vCglqWI",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"New Product 2\",\r\n    \"description\": \"New Product 2\",\r\n    \"price\": 4000,\r\n    \"image\": \"https://loremflickr.com/640/480\",\r\n    \"categoryId\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{API_URL}}/api/v1/products",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "products"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Put product (Desuso)",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"New Product\",\r\n    \"price\": 10000,\r\n    \"image\": \"https://loremflickr.com/640/480\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{API_URL}}/api/v1/products/1",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "products",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Patch product",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsInByb2ZpbGUiOiJhZG1pbiIsImlhdCI6MTcwMzcxMDU5MH0.n7HurwL2jND_WJMqmeAoomRL4RhP8RHTGtiirw7AGOM",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"New Product 11\",\r\n    \"description\": \"New Product 1\",\r\n    \"price\": 5000,\r\n    \"image\": \"https://loremflickr.com/640/480\",\r\n    \"categoryId\": 1,\r\n    \"isActive\": true\r\n    \r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{API_URL}}/api/v1/products/1",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "products",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete product",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{API_URL}}/api/v1/products/3",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "products",
+                "3"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Categories",
+      "item": [
+        {
+          "name": "Get categories",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsInByb2ZpbGUiOiJhZG1pbiIsImlhdCI6MTcwNDIwMTY4M30.HbgDwJE68LflgbmSqi1u3EbDMvgO8cpbYtiVELLV8ds",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{API_URL}}/api/v1/categories",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "categories"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get category",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{API_URL}}/api/v1/categories/1",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "categories",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Post category",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjM0LCJwcm9maWxlIjoidGllciIsImlhdCI6MTcwMzY4NDczOH0.ZrVqpB3RrTaS8DU5a8aetL0fe09qcc8XeKIAo07twPI",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Categoria 1\",\r\n    \"description\": \"Categoria 1 creada para los productos\",\r\n    \"image\": \"https://loremflickr.com/640/480\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{API_URL}}/api/v1/categories",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "categories"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Patch caregory",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Categoria 0\",\r\n    \"description\": \"Categoria 0 creada para los productos\",\r\n    \"image\": \"https://loremflickr.com/640/480\",\r\n    \"isActive\": true\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{API_URL}}/api/v1/categories/1",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "categories",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete category",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{API_URL}}/api/v1/categories/3",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "categories",
+                "3"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Get users",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsInByb2ZpbGUiOiJhZG1pbiIsImlhdCI6MTcwNDMwNDc2NH0.RWlaNTTOptnj-3n6z10YpZLxjBZ-x2WsXA2LABZQISE",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{API_URL}}/api/v1/users",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get user",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{API_URL}}/api/v1/users/1",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Post user",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"username\": \"kevin-0\",\r\n    \"email\": \"kevinalvarado.ag@gmail.com\",\r\n    \"password\": \"1234\",\r\n    \"firstName\": \"Kevin 0\",\r\n    \"lastName\": \"alvarado 0\",\r\n    \"profile\": \"admin\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{API_URL}}/api/v1/users",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Patch user",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsInByb2ZpbGUiOiJhZG1pbiIsImlhdCI6MTcwMzcwMzc4NX0.BuN4CYwhhaNt-aGZlC2Z9csa7bhaV3WC73e5vCglqWI",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"username\": \"kevin-0\",\r\n    \"password\": \"1234\",\r\n    \"firstName\": \"Kevin 0\",\r\n    \"lastName\": \"alvarado 0\",\r\n    \"isSuperuser\":  true,\r\n    \"isActive\": true\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{API_URL}}/api/v1/users/42",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users",
+                "42"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete user",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{API_URL}}/api/v1/users/3",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users",
+                "3"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Tiers",
+      "item": [
+        {
+          "name": "Get tiers",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsInByb2ZpbGUiOiJhZG1pbiIsImlhdCI6MTcwNDMwNDc2NH0.RWlaNTTOptnj-3n6z10YpZLxjBZ-x2WsXA2LABZQISE",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{API_URL}}/api/v1/tiers",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "tiers"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get tier",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{API_URL}}/api/v1/tiers/1",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "tiers",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Post tier",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsInByb2ZpbGUiOiJhZG1pbiIsImlhdCI6MTcwMzcwMzc4NX0.BuN4CYwhhaNt-aGZlC2Z9csa7bhaV3WC73e5vCglqWI",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Tier 1\",\r\n    \"image\": \"https://loremflickr.com/640/480\",\r\n    \"user\": {\r\n        \"username\": \"kevin-tier-1\",\r\n        \"email\": \"kevinalvarado.ag@gmail.com\",\r\n        \"password\": \"1234\",\r\n        \"firstName\": \"Kevin tier 1\",\r\n        \"lastName\": \"alvarado tier 1\",\r\n        \"profile\": \"tier\"\r\n    }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{API_URL}}/api/v1/tiers",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "tiers"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Patch tier",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"username\": \"kevin-0\",\r\n    \"password\": \"1234\",\r\n    \"firstName\": \"Kevin 0\",\r\n    \"lastName\": \"alvarado 0\",\r\n    \"isSuperuser\":  true,\r\n    \"isActive\": true\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{API_URL}}/api/v1/tiers/1",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "tiers",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete tier",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{API_URL}}/api/v1/tiers/3",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "tiers",
+                "3"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Status",
+      "item": [
+        {
+          "name": "Get status",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsInByb2ZpbGUiOiJhZG1pbiIsImlhdCI6MTcwNDMwNDc2NH0.RWlaNTTOptnj-3n6z10YpZLxjBZ-x2WsXA2LABZQISE",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{API_URL}}/api/v1/status",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "status"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get status",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{API_URL}}/api/v1/status/1",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "status",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Post status",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsInByb2ZpbGUiOiJhZG1pbiIsImlhdCI6MTcwNDIwMTY4M30.HbgDwJE68LflgbmSqi1u3EbDMvgO8cpbYtiVELLV8ds",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"VOID\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{API_URL}}/api/v1/status/",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "status",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Patch status",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"isActive\": true\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{API_URL}}/api/v1/status/3",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "status",
+                "3"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete status",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{API_URL}}/api/v1/status/6",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "status",
+                "6"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Orders",
+      "item": [
+        {
+          "name": "Get orders",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjM0LCJwcm9maWxlIjoidGllciIsImlhdCI6MTcwNDIwMjkwOX0.3HwsGcSwSg2ZfrHkhl3ly1F517Ikn2742MDsB5oLPeM",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{API_URL}}/api/v1/orders",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "orders"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get order",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsInByb2ZpbGUiOiJhZG1pbiIsImlhdCI6MTcwNDIwMTY4M30.HbgDwJE68LflgbmSqi1u3EbDMvgO8cpbYtiVELLV8ds",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{API_URL}}/api/v1/orders/1",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "orders",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Post order",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjM0LCJwcm9maWxlIjoidGllciIsImlhdCI6MTcwNDIwMjkwOX0.3HwsGcSwSg2ZfrHkhl3ly1F517Ikn2742MDsB5oLPeM",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{   \r\n    \"isActive\": true,\r\n    \"tierId\": 1,\r\n    \"statusId\": 2\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{API_URL}}/api/v1/orders",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "orders"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Patch order",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{   \r\n    \"isActive\": true,\r\n    \"tierId\": 2,\r\n    \"statusId\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{API_URL}}/api/v1/orders/1",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "orders",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete order",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{API_URL}}/api/v1/orders/3",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "orders",
+                "3"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Post add products",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{   \r\n    \"orderId\": 1,\r\n    \"productId\": 2,\r\n    \"amount\": 10,\r\n    \"isActive\": true\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{API_URL}}/api/v1/orders/add-products",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "orders",
+                "add-products"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Post add commissions",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsInByb2ZpbGUiOiJ0aWVyIiwiaWF0IjoxNzQ0MzgxMzY1fQ.S7xcpVzqF_HkL7frkpGQvlKvLUNiit6XM8AnFQ26oMM",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{   \r\n    \"commissionId\": 1,\r\n    \"orderProductId\": 4,\r\n    \"commissionValue\": 10,\r\n    \"isActive\": true\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{API_URL}}/api/v1/orders/add-commissions",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "orders",
+                "add-commissions"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Multimedia",
+      "item": [
+        {
+          "name": "Get multimedia",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjM0LCJwcm9maWxlIjoidGllciIsImlhdCI6MTcwNDIwMjkwOX0.3HwsGcSwSg2ZfrHkhl3ly1F517Ikn2742MDsB5oLPeM",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{API_URL}}/api/v1/orders",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "orders"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get multimedia",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsInByb2ZpbGUiOiJhZG1pbiIsImlhdCI6MTcwNDIwMTY4M30.HbgDwJE68LflgbmSqi1u3EbDMvgO8cpbYtiVELLV8ds",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{API_URL}}/api/v1/orders/1",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "orders",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Post multimedia",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjM0LCJwcm9maWxlIjoidGllciIsImlhdCI6MTcwNDIwMjkwOX0.3HwsGcSwSg2ZfrHkhl3ly1F517Ikn2742MDsB5oLPeM",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{   \r\n    \"mediaType\": \"image\",\r\n    \"fileUrl\": \"/url-image\",\r\n    \"order\": 1,\r\n    \"desciption\": \"----- Uploaded -----\",\r\n    \"isActive\": true\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{API_URL}}/api/v1/multimedia",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "multimedia"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Patch multimedia",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{   \r\n    \"mediaType\": \"image\",\r\n    \"fileUrl\": \"/url-image\",\r\n    \"order\": 1,\r\n    \"desciption\": \"----- Uploaded -----\",\r\n    \"isActive\": true\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{API_URL}}/api/v1/multimedia/1",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "multimedia",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete multimedia",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{API_URL}}/api/v1/multimedia/3",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "multimedia",
+                "3"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Commissions",
+      "item": [
+        {
+          "name": "Get commissions",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjM0LCJwcm9maWxlIjoidGllciIsImlhdCI6MTcwNDIwMjkwOX0.3HwsGcSwSg2ZfrHkhl3ly1F517Ikn2742MDsB5oLPeM",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{API_URL}}/api/v1/orders",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "orders"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get commission",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsInByb2ZpbGUiOiJhZG1pbiIsImlhdCI6MTcwNDIwMTY4M30.HbgDwJE68LflgbmSqi1u3EbDMvgO8cpbYtiVELLV8ds",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{API_URL}}/api/v1/orders/1",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "orders",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Post commission",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjM0LCJwcm9maWxlIjoidGllciIsImlhdCI6MTcwNDIwMjkwOX0.3HwsGcSwSg2ZfrHkhl3ly1F517Ikn2742MDsB5oLPeM",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{   \r\n    \"percentage\": 10,\r\n    \"userId\": 2,\r\n    \"productId\": 2,\r\n    \"isActive\": true\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{API_URL}}/api/v1/commissions",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "commissions"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Patch commission",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{   \r\n    \"mediaType\": \"image\",\r\n    \"fileUrl\": \"/url-image\",\r\n    \"order\": 1,\r\n    \"desciption\": \"----- Uploaded -----\",\r\n    \"isActive\": true\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{API_URL}}/api/v1/multimedia/1",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "multimedia",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete commission",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{API_URL}}/api/v1/multimedia/3",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "multimedia",
+                "3"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Get Test api key",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "API",
+            "value": "778899",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{API_URL}}/api/new-route",
+          "host": [
+            "{{API_URL}}"
+          ],
+          "path": [
+            "api",
+            "new-route"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Post auth login",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"username\": \"kevin-0\",\r\n    \"password\": \"1234\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{API_URL}}/api/v1/auth/login",
+          "host": [
+            "{{API_URL}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Post auth login tier",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"username\": \"kevin-tier-1\",\r\n    \"password\": \"1234\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{API_URL}}/api/v1/auth/login",
+          "host": [
+            "{{API_URL}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get orders by user",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsInByb2ZpbGUiOiJ0aWVyIiwiaWF0IjoxNzA0MzA0MzkzfQ.xNxL9UeQ2G8y9_U_WKU9j_-CQ3iXXi9uNV4QDBd60tk",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{API_URL}}/api/v1/profile/my-orders",
+          "host": [
+            "{{API_URL}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "profile",
+            "my-orders"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Post send email",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"email\": \"kevinpoud@gmail.com\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{API_URL}}/api/v1/auth/recovery",
+          "host": [
+            "{{API_URL}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "auth",
+            "recovery"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Post change password",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjQyLCJpYXQiOjE3MDQ4NTg1MzcsImV4cCI6MTcwNDg2MjEzN30.krTG80nL8dfLu7EqNT6ItZ95vX3NGxHutkMOU1Eqr_4\",\r\n    \"newPassword\": \"12345\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{API_URL}}/api/v1/auth/change-password",
+          "host": [
+            "{{API_URL}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "auth",
+            "change-password"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
