@@ -36,7 +36,7 @@ services:
     env_file:
       - .env
     depends_on:
-      - $DB_NAME_VOLUME
+      - postgres
     environment:
       - DB_HOST=$DB_HOST
       - DB_USER=$DB_USER
@@ -50,7 +50,7 @@ services:
 
   # Database postgres
   postgres:
-    image: postgres:16
+    image: postgres:17
     environment:
       - POSTGRES_DB=$DB_NAME
       - POSTGRES_USER=$DB_USER
@@ -60,12 +60,13 @@ services:
     volumes:
       # - postgres-data:/var/lib/postgresql/data
       - ./postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
 
   # pgadmin web
   postgres-admin:
     image: dpage/pgadmin4
     environment:
-      - PGADMIN_DEFAULT_EMAIL=admin@gmail.com
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
       - PGADMIN_DEFAULT_PASSWORD=root
     ports:
       - 5050:80

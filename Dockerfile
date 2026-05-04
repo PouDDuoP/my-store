@@ -1,12 +1,12 @@
-FROM node:20-alpine3.20 AS base
+FROM node:24-alpine3.22 AS base
 
 RUN mkdir -p /usr/src/app
-ENV DIR /usr/src/app
+ENV DIR=/usr/src/app
 WORKDIR $DIR
 
 FROM base AS build
 
-RUN apk update && add --no-cache dumb-init
+RUN apk update && apk add --no-cache dumb-init
 
 COPY package*.json $DIR
 
@@ -34,6 +34,8 @@ RUN npm prune --production
 FROM base AS development
 
 ENV NODE_ENV=development
+
+RUN apk add --no-cache netcat-openbsd
 
 RUN npm install nodemon -g
 

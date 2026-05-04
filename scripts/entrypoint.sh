@@ -1,16 +1,23 @@
 #!/bin/sh
-set -e           # Stop on any error
-# npx sequelize-cli db:migrate:undo --name 20231121160107-create-user utilizado para reversar una migracion creada por error
-# npm run migrations:revert --name 20231121203812-add-profile.js
-# npm run migrations:delete  # Run undo all migrations
+set -e  # Stop on any error
 
-# TODO: queda pendiente por verificar ya que se agregaron estas lienas de bcrypt para solucionar un error pero no deberia quedar asi.
-# uninstall the current bcrypt modules
-npm uninstall bcrypt
-# install the bcrypt modules for the machine
-npm install bcrypt
+echo "⏳ Waiting for database to be ready..."
 
-# npm run migrations:revert recovery-token-field # Reverse migrations
-npm run migrations:run  # Run migrations
-# npm run seed     # Preload initial data
+# Wait for PostgreSQL to be ready using nc (netcat)
+until nc -z $DB_HOST $DB_PORT; do
+  echo "Database is unavailable - sleeping"
+  sleep 2
+done
+
+echo "✅ Database is ready!"
+
+# Run migrations
+echo "🚀 Running migrations..."
+npm run migrations:run
+
+# Run seeds
+echo "🌱 Running seeds..."
+npm run seeds:run || echo "⚠️ Seeds may have already been applied"
+
+# Execute the command passed to the container
 exec "$@"
